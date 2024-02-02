@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        function TreeNode(val) {
+            this.val = val
+            this.left = null
+            this.right = null
+        }
+
+        // 先序遍历：根、左、右
+        function preOrder(root) {
+            if (root) {
+                preArray.push(root.val)
+                preOrder(roo.left)
+                preOrder(root.right)
+            }
+        }
+        // 中序遍历：左、根、右
+        function inOrder(root) {
+            if (root) {
+                inOrder(root.left)
+                middleArray.push(root.val);
+                inOrder(root.right)
+            }
+        }
+
+        // 后序遍历：左、右、根
+        function lastOrder(root) {
+            if (root) {
+                lastOrder(root.left)
+                lastOrder(root.right)
+                lastArray.push(root.val)
+            }
+        }
+
+
+    </script>
+</body>
+</html>

@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+    var uniquePaths = function(m, n) {
+        let dp = [];
+        for (let i = 1; i <= m; i++) {
+            dp[i] = dp[i] || [];
+            for(let j = 1; j <= n; j++) {
+                if (i==1 || j==1) {
+                    dp[i][j] = 1;
+                } else {
+                    dp[i][j] = dp[i-1][j] + dp[i][j-1];
+                }
+            }
+        }
+        return dp[m][n];
+    }
+    console.log(uniquePaths(1,1))
+</script>
+</body>
+</html>

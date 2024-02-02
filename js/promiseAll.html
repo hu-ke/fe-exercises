@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        let promise1 = new Promise((resolve) => {
+            setTimeout(() => {
+                resolve()
+            }, 3000)
+        })
+
+        let promise2 = new Promise((resolve) => {
+            setTimeout(() => {
+                resolve()
+            }, 6000)
+        })
+        function promiseAll (promises) {
+            return new Promise((resolve, reject) => {
+                if (!Array.isArray(promises)) {
+                    return new TypeError(' arugument must be a array')
+                }
+                let resolvedCounter = 0;
+                let resolvedNum = promises.length;
+                let resolvedResult = []
+                for (let i = 0; i < resolvedNum; i++) {
+                    Promise.resolve(promises[i]).then(value => {
+                        resolvedCounter++;
+                        resolvedResult[i] = value;
+                        if (resolvedCounter === resolvedNum) {
+                            return resolve(resolvedResult)
+                        }
+                    }, error => {
+                        return reject(error)
+                    })
+                }
+            })
+        }
+        let a = performance.now()
+        promiseAll([promise1, promise2]).then(res => {
+            console.log(performance.now() - a)
+        })
+    </script>
+</body>
+</html>

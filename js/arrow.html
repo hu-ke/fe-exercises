@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+// let one = 1;
+// function greeting() {
+//     console.log(this) // Number(1)
+// }
+// greeting.call(one)
+
+// let greeting_1 = () => {
+//     console.log(this) // window
+// }
+
+// greeting_1.call(one);
+
+function greeting() {
+    console.log(arguments)
+    let innerFn = () => {
+        console.log(arguments, this)
+    }
+    innerFn('innerParams')
+}
+
+greeting('hello')
+
+// function CreateRobot() {
+//     console.log(new.target)
+// }
+// CreateRobot()
+// let CreateObj = () => {
+//     console.log(new.target)
+// }
+// CreateRobot()
+
+// function CreateRobot(name, color) {
+//     this.name = name;
+//     this.color = color;
+// }
+// let robotOne = new CreateRobot('kite', 'pink')
+// console.log(robotOne.name)
+
+// let CreateObj = (age) => {
+//     this.age = age
+// }
+// let obj = new CreateObj(18)
+// console.log(obj.age)
+
+// greeting()
+// function greeting() {
+//     console.log('hello')
+// }
+// greeting_1()
+// let greeting_1 = () => {
+//     console.log('hello')
+// }
+    </script>
+</body>
+</html>

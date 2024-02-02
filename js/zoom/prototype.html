@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+function Animal(name) {
+    this.name = name
+    return 111
+    // return {
+    //     w: 11111
+    // }
+}
+const a = new Animal('123')
+console.log(a)
+
+// function People(name, language) {
+//     Animal.call(this, name)
+//     this.language = language
+// }
+
+// let me = new People('huke', 'chinese')
+// console.log(me)
+
+// function create(name, language) {
+//     let obj = {}
+//     obj.__proto__ = People.prototype
+//     People.call(obj, name, language)
+//     return obj
+// }
+// console.log(create('huke', 'chinese'))
+    </script>
+</body>
+</html>

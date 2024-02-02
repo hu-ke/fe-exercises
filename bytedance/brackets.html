@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        // my solution
+        let str = '[](){}'
+
+        function isValid(str) {
+            let stack = []
+            for (let i = 0; i < str.length; i++) {
+                if (['[', '(', '{'].includes(str[i])) {
+                    stack.push(str[i])
+                } else if ([']',')', '}'].includes(str[i])) {
+                    let item = stack.pop()
+                    if (isMatch(item, str[i])) {
+                        continue
+                    } else {
+                        return false
+                    }
+                } else {
+                    return false
+                }
+            }
+            if (stack.length===0) {
+                return true
+            }
+            return false
+        }
+
+        function isMatch(s1, s2) {
+            if (s1 === '[' && s2 === ']') {
+                return true
+            } else if (s1 === '(' && s2 === ')') {
+                return true
+            } else if (s1 === '{' && s2 === '}') {
+                return true
+            }
+            return false
+        }
+        console.log(isValid(str))
+    </script>
+</body>
+</html>

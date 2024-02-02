@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        let arr = [7,3,1,4,8,20,-1,10, 100, -100]
+
+        function quickSort(arr, left, right) {
+            let len = arr.length
+            left = typeof left === 'number' ? left : 0
+            right = typeof right === 'number' ? right : len - 1
+            if (left < right) {
+                partitionIndex = partition(arr, left, right);
+                // quickSort(arr, left, partitionIndex-1);
+                // quickSort(arr, partitionIndex+1, right);
+            }
+        }
+
+        function partition(arr, left, right) {     // 分区操作
+            var pivotIndex = left,                      // 设定基准值（pivotIndex）
+                targetIndex = pivotIndex + 1;
+            let i = pivotIndex + 1;
+            while(i <= right) {
+                if (arr[i] < arr[pivotIndex]) {
+                    swap(arr, i, targetIndex);
+                    targetIndex++;
+                }
+                i++
+            }
+            swap(arr, pivotIndex, targetIndex - 1);
+            return targetIndex-1;
+        }
+
+        function swap(arr, i, j) {
+            var temp = arr[i];
+            arr[i] = arr[j];
+            arr[j] = temp;
+        }
+
+        console.log(partition(arr,0, arr.length - 1))
+
+        // quickSort(arr, 0, 10)
+        // console.log(arr)
+    </script>
+</body>
+</html>

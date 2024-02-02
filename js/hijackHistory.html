@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        let originalPush = window.history.pushState
+        let originalReplace = window.history.replaceState
+        function createPopStateEvent(state, originalMethodName) {
+            // We need a popstate event even though the browser doesn't do one by default when you call replaceState, so that
+            // all the applications can reroute.
+            let evt;
+            try {
+                evt = new PopStateEvent('popstate', { state });
+            } catch (err) {
+                // IE 11 compatibility
+                // https://docs.microsoft.com/en-us/openspecs/ie_standards/ms-html5e/bd560f47-b349-4d2c-baa8-f1560fb489dd
+                evt = document.createEvent('PopStateEvent');
+                evt.initPopStateEvent('popstate', false, false, state);
+            }
+            evt.icestark = true;
+            evt.icestarkTrigger = originalMethodName;
+            return evt;
+        }
+        const hijackHistory = () => {
+            window.history.pushState = (state, title, url, ...rest) => {
+                originalPush.apply(window.history, [state, title, url, ...rest]);
+                const eventName = 'pushState';
+                handleStateChange(createPopStateEvent(state, eventName), url, eventName);
+            };
+
+            window.history.replaceState = (state, title, url, ...rest) => {
+                originalReplace.apply(window.history, [state, title, url, ...rest]);
+                const eventName = 'replaceState';
+                handleStateChange(createPopStateEvent(state, eventName), url, eventName);
+            };
+
+            window.addEventListener('popstate', urlChange, false);
+            window.addEventListener('hashchange', urlChange, false);
+        };
+
+        const urlChange = (event) => { // PopStateEvent | HashChangeEvent
+            // setHistoryEvent(event);
+            console.log(location.href, event.type);
+        };
+
+        const handleStateChange = (event, url, method) => {
+            // setHistoryEvent(event);
+            console.log(event, url, method);
+        };
+
+        hijackHistory()
+
+        setTimeout(() => {
+            window.history.pushState({}, null, '/a')
+        }, 3000)
+    </script>
+</body>
+</html>

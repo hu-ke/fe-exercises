@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>手撕promise</title>
+	</head>
+	<body>
+		<script>
+			let STATES = {
+				PENDING: 0,
+				RESOLVED: 1,
+				REJECTED: 2
+			}
+			class MyPromise {
+				constructor(fn) {
+					this.state = STATES.PENDING
+					this.value = undefined
+					this._resolve = this._resolve.bind(this)
+					this._reject = this._reject.bind(this)
+					fn(this._resolve, this._reject)
+					this.handlers = []
+				}
+				_resolve(val) {
+					this.value = val
+					this.state = STATES.RESOLVED
+					queueMicrotask(() => {
+						this.handlers.forEach(handler => {
+							this.value = handler(this.value)
+						})
+					})
+				}
+				_reject() {
+
+				}
+				then(handler) {
+					this.handlers.push(handler)
+					return new MyPromise((resolve) => {
+						resolve(this.value)
+					})
+				}
+			}
+			new MyPromise((resolve) => {
+				setTimeout(() => {
+					resolve(123)
+				}, 3000)
+			}).then(res => {
+				console.log('res>>', res)
+				return res + 100
+			}).then(res => {
+				console.log(res)
+			})
+		</script>
+	</body>
+</html>

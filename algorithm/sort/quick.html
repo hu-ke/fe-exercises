@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        let arr = [1,3,7,4,8,20,-1,10, 100, -100]
+
+        function quickSort(arr, left, right) {
+            var len = arr.length,
+                partitionIndex,
+                left = typeof left != 'number' ? 0 : left,
+                right = typeof right != 'number' ? len - 1 : right;
+
+            if (left < right) {
+                partitionIndex = partition(arr, left, right);
+                quickSort(arr, left, partitionIndex-1);
+                quickSort(arr, partitionIndex+1, right);
+            }
+            return arr;
+        }
+        // [3,1,4, 0, 8,7]
+        function partition(arr, left ,right) {     // 分区操作
+            var pivotIndex = left,                      // 设定基准值（pivotIndex）
+                index = pivotIndex + 1;
+            for (var i = index; i <= right; i++) {
+                if (arr[i] < arr[pivotIndex]) {
+                    swap(arr, i, index);
+                    index++;
+                }        
+            }
+            swap(arr, pivotIndex, index - 1);
+            return index-1;
+        }
+
+        function swap(arr, i, j) {
+            var temp = arr[i];
+            arr[i] = arr[j];
+            arr[j] = temp;
+        }
+
+        quickSort(arr, 0, 10)
+        console.log(arr)
+    </script>
+    <script>
+        // 快排还有一种是左右指针
+        // 自己写的
+        // let arr = [111, 4,18,7,33,52,6,1,2, 112, 21,113,32]
+
+        // function swap(arr, i, j) {
+        //     let temp = arr[i]
+        //     arr[i] = arr[j]
+        //     arr[j] = temp
+        // }
+
+        // function partition(arr, startIndex, endIndex) {
+        //     let countIndex = startIndex + 1;
+        //     let pivot = arr[startIndex]
+        //     let pivotIndex = startIndex
+        //     let i = startIndex + 1
+        //     while(i <= endIndex) {
+        //         if (arr[i] < pivot) {
+        //             swap(arr, i, countIndex)
+        //             countIndex++
+        //         }
+        //         i++
+        //     }
+        //     swap(arr, startIndex, countIndex - 1)
+        //     return countIndex - 1
+        // }
+
+        // function quickSort(arr, startIndex, endIndex) {
+        //     if (endIndex > startIndex) {
+        //         let partitionIndex = partition(arr, startIndex, endIndex)
+        //         quickSort(arr, startIndex, partitionIndex - 1)
+        //         quickSort(arr, partitionIndex + 1, endIndex)
+        //     }
+        // }
+
+        // quickSort(arr, 0 , arr.length - 1)
+        // console.log(arr)
+    </script>
+</body>
+</html>

@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+      // 1. 注册同一个 sw.js
+      navigator.serviceWorker.register('./sw.js').then(()=>console.log('注册成功'));
+      // 2. 监听
+      navigator.serviceWorker.addEventListener('message', (event) => console.log('收到信息:', event.data));
+      // 3. 发送 （基于controller）
+      navigator.serviceWorker.controller.postMessage('index2');
+    </script>
+</body>
+</html>

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        const arr = [1,3,7,4,8,20,-1,10, 100, -100]
+        function swap(list, a, b) {
+            const temp = list[a]
+            list[a] = list[b];
+            list[b] = temp;
+        }
+
+        function sort(list, len) {
+            for (let i = 0; i < len; i++) {
+                if (list[i] > list[i + 1]) {
+                    swap(list, i, i + 1)
+                }
+            }
+            return list;
+        }
+        function bubbleSort(list) {
+            let len = list.length
+            while(len > 0) {
+                list = sort(list, len)
+                len--
+            }
+            return list;
+        }
+        // function bubbleSort(arr) {
+        //     var i = arr.length, j;
+        //     var tempExchangVal;
+        //     while (i > 0) {
+        //         for (j = 0; j < i - 1; j++) {
+        //             if (arr[j] > arr[j + 1]) {
+        //                 tempExchangVal = arr[j];
+        //                 arr[j] = arr[j + 1];
+        //                 arr[j + 1] = tempExchangVal;
+        //             }
+        //         }
+        //         i--;
+        //     }
+        //     return arr;
+        // }
+        
+        bubbleSort(arr)
+        console.log(arr)
+    </script>
+</body>
+</html>

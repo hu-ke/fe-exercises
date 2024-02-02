@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+class RangeList {
+  constructor() {
+    this._ranges = []
+  }
+
+  mergeRange([aStart, aStop], [bStart, bStop]) {
+    return [Math.min(aStart, bStart), Math.max(aStop, bStop)]
+  }
+
+  add(range) {
+    let [start, stop] = range
+    if (start >= stop) {
+      return
+    }
+    let i = 0
+    while (i < this._ranges.length) {
+      let [a, b] = this._ranges[i]
+      if (stop < a) {
+        this._ranges.splice(i, 0, range)
+        return
+      }
+      if (start <= b) {
+        let r = this.mergeRange(range, [a, b])
+        this._ranges.splice(i, 1)
+        this.add(r)
+        return
+      }
+
+      i += 1
+    }
+    this._ranges.push(range)
+  }
+
+  rangeMinus([aStart, aStop], [bStart, bStop]) {
+    let ret = [
+      [aStart, bStart],
+      [bStop, aStop]
+    ]
+    return ret.filter(([a, b]) => b > a)
+  }
+
+  isRangesIntersected(a, b) {
+    let [aStart, aStop] = a
+    let [bStart, bStop] = b
+    return !(aStop <= bStart || bStop <= aStart)
+  }
+
+  remove(range) {
+    let [start, stop] = range
+    if (!(stop > start)) {
+      return
+    }
+    let i = 0
+    while (i < this._ranges.length) {
+      let [a, b] = this._ranges[i]
+      if (stop < a) {
+        return
+      }
+      if (this.isRangesIntersected([a, b], range)) {
+        let rs = this.rangeMinus([a, b], range)
+        this._ranges.splice(i, 1, ...rs)
+        i += (rs.length - 1)
+      }
+      i += 1
+    }
+  }
+
+  toString() {
+    let ret = this._ranges.map(([start, stop], _) => `[${start}, ${stop})`)
+    return ret.join(' ')
+  }
+
+  print() {
+    console.log(this.toString())
+  }
+}
+
+// Example run
+const rl = new RangeList();
+
+rl.add([1, 5]);
+rl.print();
+// Should display: [1, 5)
+
+rl.add([10, 20]);
+rl.print();
+// Should display: [1, 5) [10, 20)
+
+rl.add([20, 20]);
+rl.print();
+// Should display: [1, 5) [10, 20)
+
+rl.add([20, 21]);
+rl.print();
+// Should display: [1, 5) [10, 21)
+
+rl.add([2, 4]);
+rl.print();
+// Should display: [1, 5) [10, 21)
+
+rl.add([3, 8]);
+rl.print();
+// Should display: [1, 8) [10, 21)
+
+rl.remove([10, 10]);
+rl.print();
+// Should display: [1, 8) [10, 21)
+
+rl.remove([10, 11]);
+rl.print();
+// Should display: [1, 8) [11, 21)
+
+rl.remove([15, 17]);
+rl.print();
+// Should display: [1, 8) [11, 15) [17, 21)
+
+rl.remove([3, 19]);
+rl.print();
+// Should display: [1, 3) [19, 21)
+
+    </script>
+</body>
+</html>

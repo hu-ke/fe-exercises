@@ -1,0 +1,10 @@
+.div1 {
+    width: 200px;
+    outline: 2px red solid;
+}
+.div2 {
+    width: 100px;
+    height: 200px;
+    float: left;
+    background-color: royalblue;
+}

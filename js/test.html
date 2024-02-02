@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        
+        let reg = /3/g
+        console.log(reg.test(12345))
+
+        class Cat {
+            constructor(name) {
+                this.name = name
+            }
+            mew() {
+                let p = new Promise((resolve, reject) => {
+                    setTimeout(() => {
+                        resolve('mew')
+                    }, 0)
+                })
+                p.then((res) => {
+                    console.log(res)
+                })
+                return this
+            }
+            sleep(mils) {
+                let p = new Promise((resolve, reject) => {
+                    setTimeout(() => {
+                        resolve('sleep')
+                    }, 3000)
+                })
+                p.then((res) => {
+                    console.log(res)
+                })
+                return this
+            }
+        }
+        (new Cat('k')).mew().sleep().mew().mew()
+
+        // var count = 0
+
+        // var startVal = +new Date()
+        // console.log("start time", 0, 0)
+        // function func() {
+        // setTimeout(() => {
+        //     console.log("exec time", ++count, +new Date() - startVal)
+        //     if (count === 50) {
+        //     return
+        //     }
+        //     func()
+        // }, 0)
+        // }
+
+        // func()
+
+        //1.
+        // let arr = [1,2,[3, [4,6],7], 4]
+        // function add(arr) {
+        //     let total = arr.reduce((sum, item) => {
+        //         if (typeof item === 'number') {
+        //             return sum + item
+        //         }
+        //         return add(item) + sum
+        //     }, 0)
+        //     return total
+        // }
+        // console.log(add(arr))
+
+        //2. [{()}]
+        // function reverse(char) {
+        //     let str = ''
+        //     switch(char) {
+        //         case '[':
+        //             str = ']'
+        //             break;
+        //         case '{':
+        //             str = '}'
+        //             break;
+        //         case '(':
+        //             str = ')'
+        //             break
+        //     }
+        //     return str
+        // }
+        // function solution(str) {
+        //     let keys = ['(', '[', '{']
+        //     let values = [')', ']', '}']
+        //     let stack = []
+        //     let len = str.length
+           
+        //     for (let i = 0; i < len; i++) {
+        //         if (keys.includes(str[i])) {
+        //             stack.push(str[i])
+        //         } else {
+        //             let key = stack.pop()
+        //             if (reverse(key) === str[i]) {
+        //                 continue
+        //             }
+        //             return false
+        //         }
+        //     }
+        //     return stack.length === 0
+        // }
+
+        // console.log(solution('()'))
+
+        // 3.
+        // let arr = []
+        // function add(num) {
+        //     arr.push(num)
+        // }
+        // function query(num) {
+        //     let len = arr.length
+        //     let max = null
+        //     for (let i = 0; i < len; i++) {
+        //         if (arr[i] <= num) {
+        //             if (!max) {
+        //                 max = arr[i]
+        //             } else {
+        //                 max = Math.max(max, arr[i])
+        //             }
+        //         }
+        //     }
+        //     return max
+        // }
+        // add(5)
+        // add(100)
+        // add(50)
+        // console.log(query(55))
+        // add(53)
+        // console.log(query(55))
+    
+    </script>
+</body>
+</html>

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+let target = 7
+let nuts = [2,3,1,2,4,3]
+
+function minSubArray(target, nums) {
+    let len = nums.length
+    let left = right = sum = 0
+    let res = Infinity
+    while(right < len) {
+        sum += nums[right++];
+        while(sum >= target) {
+            res = Math.min(res, right-left)
+            sum -= nums[left++]
+        }
+    }
+    return res === Infinity ? 0 : res
+}
+
+console.log(minSubArray(target, nuts))
+    </script>
+</body>
+</html>

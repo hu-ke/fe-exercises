@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        let taskQueue = [
+            () => {
+                console.log('task1 start')
+                console.log('task1 end')
+            },
+            () => {
+                console.log('task2 start')
+                console.log('task2 end')
+            },
+            () => {
+                console.log('task3 start')
+                console.log('task3 end')
+            }
+        ]
+        const performUnitWork = () => {
+            // Retrieve the first task in the first queue for execution
+            taskQueue.shift()()
+        }
+        const workloop = (deadline) => {
+            console.log(`The remaining time of this frame: ${deadline.timeRemaining()}`)
+            // If the remaining time is greater than 0 or the defined timeout is reached, the task is executed
+            // If there is no time left, the task is given up and the control returns to the browser
+            while ((deadline.timeRemaining() > 0 || deadline.didTimeout) && taskQueue.length > 0) {
+                performUnitWork()
+            }
+            // If there are pending tasks, requestIdleCallback is called to apply for the next time slice
+            if (taskQueue.length > 0) {
+                window.requestIdleCallback(workloop, { timeout: 1000 })
+            }
+        }
+        requestIdleCallback(workloop, { timeout: 1000 })
+    </script>
+</body>
+</html>

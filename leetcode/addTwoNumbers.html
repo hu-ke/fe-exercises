@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        // 输入：l1 = [2,4,3], l2 = [5,6,4]
+        // 输出：[7,0,8]
+        // 解释：342 + 465 = 807.
+        var l1 = [2, 4, 3], l2 = [5, 6, 4]
+        function addTwoNumbers(l1, l2) {
+            // let s1 = l1.reverse().join('')
+            // let s2 = l2.reverse().join('')
+            // let total = (parseInt(s1) + parseInt(s2)) + ''
+            // return total.split('').reverse().map(i => +i)
+
+            let len1 = l1.length
+            let len2 = l2.length
+            let carry = 0;
+            let len = Math.max(len1, len2)
+            let res = new Array(len)
+            for (let i = 0; i < len; i++) {
+                let tempSum = (l1[i] || 0) + (l2[i] || 0)
+                let num = tempSum % 10
+                res[i] = num + carry
+                carry = Math.floor(tempSum / 10)
+            }
+            return res
+        }
+
+        console.log(addTwoNumbers(l1, l2))
+    </script>
+</body>
+
+</html>

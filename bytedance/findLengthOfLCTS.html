@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        let arr = [2,2,2,2,2]
+        function findLengthOfLCTS(arr) {
+            if (!arr || arr.length === 0) {
+                return 0
+            }
+            let max = 1
+            let count = 0
+            let prev = arr[0]
+            arr.forEach((num, index) => {
+                if (index === 0) {
+                    count++
+                    return
+                }
+                if (num > prev) {
+                    count++
+                    prev = num
+                    max = Math.max(max, count)
+                } else {
+                    count = 0
+                    prev = num
+                }
+            })
+            return max
+        }
+        console.log(findLengthOfLCTS(arr))
+    </script>
+</body>
+</html>

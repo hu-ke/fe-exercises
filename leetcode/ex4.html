@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        function isNStraightHand(hand, groupSize) {
+            if (!Array.isArray(hand)) {
+                return false
+            }
+            let length = hand.length
+            if (length % groupSize !== 0) {
+                return false
+            }
+            let arrNums = hand.length / groupSize
+            let arr = hand.sort()
+            let newContainer = []
+            console.log('arrNums', arrNums)
+            for (let i = 0; i < arrNums; i++) {
+                let list = new Array(groupSize).fill(0)
+                newContainer.push(list)
+            }
+            console.log(newContainer)
+
+            for (let i = 0; i < arrNums; i++) {
+                for (let j = 0; j < groupSize; j++) {
+                    let num = arr.shift();
+                    if (i === 0 && j === 0) {
+                        newContainer[i][j] = num
+                    } else if (num === newContainer[i][j - 1] + 1) {
+                        newContainer[i][j] = num
+                    } else {
+                        newContainer[i+1][0] = num
+                    }
+                }
+            }
+        }
+        let arr = [1, 2, 3, 6, 2, 3, 4, 7, 8]
+        // isNStraightHand(arr, 3)
+    </script>
+</body>
+</html>

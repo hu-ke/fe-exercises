@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        function TreeNode(val, left, right) {
+            this.val = val;
+            this.left = left;
+            this.right = right;
+        }
+
+        function searchNode(node, val) {
+            if (!node) { return null; }
+            let nVal = node.val;
+            let {left, right} = node;
+            if (val < nVal) {
+                return searchNode(left, val);
+            } else if (val > nVal) {
+                return searchNode(right, val);
+            } else {
+                return node;
+            }
+        }
+
+        // function insert(node, val) {
+        //     if (val > node.val) {
+        //         if (!node.right) {
+        //             node.right = new TreeNode(val, null, null)
+        //         } else {
+        //             insert(node.right, val)
+        //         }
+        //     } else if (val < node.val) {
+        //         insert(node.left, val)
+        //     }
+        // }
+    </script>
+</body>
+</html>

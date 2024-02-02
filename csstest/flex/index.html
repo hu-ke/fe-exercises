@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .wrap {
+            display: flex;
+            justify-content: space-between;
+        }
+        .box {
+            border: 1px solid red;
+            width: 50px;
+            height: 50px;
+        }
+    </style>
+</head>
+<body>
+    <div class="wrap">
+        <div class="box" style="order: 2;flex-grow: 0.5;">A</div>
+        <div class="box" style="order: 1;flex: 0.5;">B</div>
+        <div class="box" style="order: 3">C</div>
+    </div>
+</body>
+</html>

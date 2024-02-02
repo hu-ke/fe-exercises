@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+// 用0-51表示这52张牌，按照顺序，♠A-♠K为0-12，♥A-♥K为13-25，♣A-♣K为26-38，◆A-◆K为39-51
+// 一副牌，发出7张牌，存于数组arr中，实现一个函数返回true或false判断是否有同花顺
+// spade: 0<=arr[i]<=12
+// heart: 13<=arr[i]<=25
+// club: 26<=arr[i]<=38
+// diamnd: 39<=arr[i]<=51
+function judge(arr) {
+    let result = Array.from(new Set(arr)).sort((a, b) => a-b)
+    if (result.length < 5) return false
+    for (let i = 0; i < result.length;i++) {
+        if (result[i] + 4 === result[i+4]) { // 顺子
+            if (result[i] <= 12 && result[i] > 0 && result[i+4] <= 12 && result[i+4] >= 0) {
+                return true
+            } else if (result[i] <= 25 && result[i > 13 && result[i+4] <= 25 && result[i+4]] >= 13) {
+                return true
+            } else if (result[i] <= 38 && result[i] > 26 && result[i+4] <= 38 && result[i+4] >= 26) {
+                return true
+            } else if (result[i] <= 51 && result[i] > 39 && result[i+4] <= 51 && result[i+4] >=39) {
+                return true
+            }
+        }
+    }
+    return false
+}
+
+
+        // 合并判断区间后的简洁代码
+        // function judge(arr) {
+        //     let result = Array.from(new Set(arr)).sort((a,b) => a - b)
+        //     if (result.length < 5) return false
+        //     for (let i = 0; i < result.length; i++) {
+        //         if (result[i] + 4 === result[i+4]) { // 顺子
+        //             if (result[i] <= 8 && result[i] > 0) {
+        //                 return true
+        //             } else if (result[i] <= 21 && result[i] > 13) {
+        //                 return true
+        //             } else if (result[i] <= 34 && result[i] > 26) {
+        //                 return true
+        //             } else if (result[i] <= 27 && result[i] > 39) {
+        //                 return true
+        //             }
+        //         }
+        //     }
+        //     return false
+        // }
+        // console.log(judge([8,9,10,11,12]))
+    </script>
+</body>
+</html>

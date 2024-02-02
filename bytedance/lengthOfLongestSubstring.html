@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+let str = 'acbcadbb'
+
+// function lengthOfLongestSubstring(str) {
+//     let max = 1
+//     let len = str.length
+//     for(let i=0;i<len;i++) {
+//         let temp = []
+//         for (let j=i; j < len;j++) {
+//             if (!temp.includes(str[j])) {
+//                 temp.push(str[j])
+//             } else {
+//                 max = Math.max(max, temp.length)
+//                 break
+//             }
+//         }
+//     }
+//     return max
+// }
+// console.log(lengthOfLongestSubstring(s))
+
+function lengthOfLongestSubstring(s) {
+    let res = 0
+    let arr = []
+    for (let i = 0; i < s.length;i++) {
+        if (arr.includes(s[i])) {
+            console.log(s[i])
+            arr.splice(0, arr.indexOf(s[i]) + 1)
+        }
+        arr.push(s[i])
+        res = Math.max(res, arr.length)
+    }
+    return res
+}
+console.log(lengthOfLongestSubstring(str))
+    </script>
+</body>
+</html>

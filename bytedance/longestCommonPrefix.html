@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        let strs = ["flower","flow","flight"]
+// my solution        
+// let strs = ["flower","flow","flowight"]
+// function longestPrefix(strs) {
+//     let cIndex = 0
+//     let len = strs.length
+//     let res = ''
+//     while(1) {
+//         let temp = ''
+//         for (let str of strs) {
+//             if (!temp) {
+//                 temp = str[cIndex]
+//             }
+//             if (str[cIndex] !== temp || cIndex > str.length - 1) {
+//                 return str.slice(0, cIndex)
+//             }
+//         }
+//         cIndex++
+//     }
+// }
+        function longestCommonPrefix(strs) {
+            let map = {}
+            let firstItem = strs[0]
+            let minLen = firstItem.length
+            strs.forEach(str => {
+                minLen = Math.min(str.length, minLen)
+                map[str] = 0
+            })
+
+            let count = minLen
+            let commonPrefix = ''
+            for(let i = 0;i < count;i++) {
+                let c = firstItem[i]
+                for(let k in map) {
+                    if (k[i] !== c) {
+                        return commonPrefix
+                    }
+                }
+                commonPrefix = `${commonPrefix}${c}`
+            }
+            return commonPrefix
+        }
+        console.log(longestCommonPrefix(strs))
+    </script>
+</body>
+</html>

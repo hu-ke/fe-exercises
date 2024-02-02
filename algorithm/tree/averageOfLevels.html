@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+// https://leetcode-cn.com/problems/average-of-levels-in-binary-tree
+/**
+给定一个非空二叉树, 返回一个由每层节点平均值组成的数组。
+
+示例 1：
+输入：
+    3
+   / \
+  9  20
+    /  \
+   15   7
+输出：[3, 14.5, 11]
+解释：
+第 0 层的平均值是 3 ,  第1层是 14.5 , 第2层是 11 。因此返回 [3, 14.5, 11] 。
+ 
+提示：
+节点值的范围在32位有符号整数范围内。
+*/
+/**
+ * Definition for a binary tree node.
+ * function TreeNode(val, left, right) {
+ *     this.val = (val===undefined ? 0 : val)
+ *     this.left = (left===undefined ? null : left)
+ *     this.right = (right===undefined ? null : right)
+ * }
+ */
+ class Node {
+    constructor(val) {
+        this.val = val
+        this.left = null
+        this.right = null
+    }
+}
+let root = new Node(3)
+let node9 = root.left = new Node(9)
+let node20 = root.right = new Node(20)
+let node15 = node20.left = new Node(15)
+let node11 = node15.left = new Node(11)
+let node23 = node15.right = new Node(23)
+let node7_ = node20.right = new Node(7)
+
+// bfs
+var averageOfLevels = function(root) {
+    root.n = 0
+    let queue = [root]
+
+    let res = []
+
+    function setNode(item) {
+        if (res.length === 0) {
+            res.push([item])
+        } else {
+            let found = false
+            for (let r of res) {
+                if (r.some(i => i.n === item.n)) {
+                    found = true
+                    r.push(item)
+                }
+            }
+            if (!found) {
+                res.push([item])
+            }
+        }
+    }
+    
+    while(queue.length > 0) {
+        let firstNode = queue.shift()
+        setNode(firstNode)
+        if (firstNode.left) {
+            firstNode.left.n = firstNode.n + 1
+            queue.push(firstNode.left)
+        }
+        if (firstNode.right) {
+            firstNode.right.n = firstNode.n + 1
+            queue.push(firstNode.right)
+        }
+    }
+    console.log('res>>', res)
+}
+averageOfLevels(root)
+
+// 更好dfs
+// var averageOfLevels = function(root) {
+//     let dsArr = [];
+//     function travel(node, depth) {
+//         if (!node) {
+//             return;
+//         }
+//         let { left, right, val } = node;
+//         if (dsArr[depth] === undefined) {
+//             dsArr[depth] = [];
+//         }
+//         dsArr[depth].push(val);
+//         left && travel(left, depth+1);
+//         right && travel(right, depth+1);
+//     }
+//     travel(root, 0);
+//     dsArr = dsArr.map(ds=>ds.reduce((acc, v)=>(acc+v), 0) / ds.length);
+//     return dsArr;
+// };
+    </script>
+</body>
+</html>

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        let intervals = [[1,4],[4,5]]
+        
+        function merge(intervals) {
+            let len = intervals.length
+            for (let i = 1; i < len;i++) {
+                if (intervals[i-1][1] >= intervals[i][0]) {
+                    let newItem = [intervals[i-1][0], intervals[i][1]]
+                    intervals.shift()
+                    intervals.shift()
+                    intervals.unshift(newItem)
+                    merge(intervals)
+                    return;
+                }
+            }
+        }
+
+        merge(intervals)
+        console.log(intervals)
+    </script>
+</body>
+</html>

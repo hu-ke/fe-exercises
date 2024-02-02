@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        (function (root, factory) {
+            if (typeof define === 'function' && define.amd) {
+                // AMD. Register as an anonymous module.
+                define(['exports', 'b'], factory);
+            } else if (typeof exports === 'object' && typeof exports.nodeName !== 'string') {
+                // CommonJS
+                factory(exports, require('b'));
+            } else {
+                // Browser globals
+                factory((root.myModuleName = {}), root.b);
+            }
+        }(typeof self !== 'undefined' ? self : this, function (exports, b) {
+            // Use b in some fashion.
+
+            // attach properties to the exports object to define
+            // the exported module properties.
+            exports.action = function () {};
+        }));
+        console.log(this)
+    </script>
+</body>
+</html>

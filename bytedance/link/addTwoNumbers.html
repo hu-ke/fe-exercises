@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        let l1 = {
+            value: 2,
+            next: {
+                value: 4,
+                next: {
+                    value: 3,
+                    next:null
+                }
+            },
+        }
+        let l2 = {
+            value: 5,
+            next: {
+                value: 6,
+                next: {
+                    value: 4,
+                    next: null
+                }
+            }
+        }
+        // to be finished
+        function addTwoNumbers(l1, l2) {
+            let l3 = {};
+            let node1 = l1
+            let node2 = l2
+            while(node1 && node2) {
+                let newValue = node1.value + node2.value
+                let isRemain = false
+                if (newValue > 10) {
+                    l3.value = newValue % 10
+                    isRemain = true
+                } else {
+                    l3.value = newValue
+                }
+                node1 = node1.next
+                node2 = node2.next
+            }
+        }
+    </script>
+</body>
+</html>

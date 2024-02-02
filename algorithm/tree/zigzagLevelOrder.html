@@ -1,0 +1,129 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        // my solution
+        class Node {
+            constructor(val, level) {
+                this.val = val
+                this.left = null
+                this.right = null
+                this.level = level
+            }
+        }
+        let root = new Node(3, 0)
+        let node9 = root.left = new Node(9,1)
+        let node20 = root.right = new Node(20,1)
+        let node15 = node20.left = new Node(15,2)
+        let node11 = node15.left = new Node(11,3)
+        let node23 = node15.right = new Node(23,3)
+        let node9_ = node20.right = new Node(9, 2)
+         
+
+        let res = []
+
+        function printItem(item) {
+            console.log(item.val)
+            if (res.length === 0) {
+                res.push([item])
+            } else {
+                let found = false
+                for (let r of res) {
+                    if (r.some(i => i.n === item.n)) {
+                        found = true
+                        r.push(item)
+                    }
+                }
+                if (!found) {
+                    res.push([item])
+                }
+            }
+        }
+
+        function zigzagLevelOrder(root) {
+            root.n = 0
+            let queue = [root]
+            
+            while(queue.length > 0) {
+                let firstNode = queue.shift()
+                printItem(firstNode)
+                if (firstNode.left) {
+                    firstNode.left.n = firstNode.n + 1
+                    queue.push(firstNode.left)
+                }
+                if (firstNode.right) {
+                    firstNode.right.n = firstNode.n + 1
+                    queue.push(firstNode.right)
+                }
+            }
+        }
+
+        zigzagLevelOrder(root)
+        let final = []
+        for (let r of res) {
+            let remain = r[0].n % 2
+            let lr = remain === 0
+            final.push(lr ? r.map(i => i.val) : r.reverse().map(i => i.val))
+        }
+        console.log('final', final)
+
+        // [[3],[20,9],[15,9],[23,11]]
+        // 3 9 20 15 9 11 23
+        // function zigzagLevelOrder(root) {
+        //     let arr = [root]
+        //     while(arr.length > 0) {
+        //         let item = arr.shift()
+        //         printItem(item)
+        //         let leftToRight = item.level % 2 !== 0
+        //         if (leftToRight) {
+        //             if (item.left) {
+        //                 arr.push(item.left)
+        //             }
+        //             if (item.right) {
+        //                 arr.push(item.right)
+        //             }
+        //         } else {
+        //             if (item.right) {
+        //                 arr.push(item.right)
+        //             }
+        //             if (item.left) {
+        //                 arr.push(item.left)
+        //             }
+        //         }
+        //     }
+        // }
+        // zigzagLevelOrder(root)
+    </script>
+</body>
+</html>
+class Solution {
+    public:
+    vector<vector<int>> zigzagLevelOrder(TreeNode* root) {
+        vector<vector<int>> res;
+        queue<TreeNode *> q;
+        if (root) q.push(root);
+
+        bool lr = true;
+        while (!q.empty()) {
+            int size = q.size();
+            vector<int> level(size, 0);
+            while (size--) {
+                root = q.front(); q.pop();
+                level[lr ? level.size() - size - 1 : size] = root->val;
+                if (root->left) q.push(root->left);
+                if (root->right) q.push(root->right);
+            }
+            res.push_back(move(level));
+            lr = !lr;
+        }
+
+        return res;
+    }
+};

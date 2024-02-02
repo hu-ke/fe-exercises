@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="d1">1
+    </div>
+</body>
+<script>
+    let test4Fn = ()=>{
+        console.log("test4",this);
+    }
+    // this第一题
+    let obj ={
+        name:"obj",
+        test1:function(){
+            document.getElementById("d1").addEventListener("click",()=>{
+                console.log("test1",this);
+            })
+        },
+        test2:()=>{
+            document.getElementById("d1").addEventListener("click",()=>{
+                console.log("test2",this);
+            })
+        },
+        test3:()=>{
+            console.log("test3",this);
+        },
+        test4: function(){
+            document.getElementById("d1").addEventListener("click", test4Fn)
+        }
+    }
+    obj.test3();
+    obj.test1();
+    obj.test2();
+    obj.test4();
+        // // this第二题
+        // var name = '222'
+        // var b = {
+        //     name:"333",
+        //     say:function(){
+        //         (function() {
+        //             console.log(this.name)
+        //         })()
+        //         // 等同于
+        //     //  let fn1 = function() {
+        //     //    console.log(this.name)
+        //     //  }
+        //     // fn1()
+        //     }
+        // }
+
+        // b.say() // 输出222，没有对象调用this时，this指向全局对象。
+
+
+</script>
+</html>

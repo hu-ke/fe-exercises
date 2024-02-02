@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+            //     void dfs(vector<vector<char>>&grid,int r,int c){
+    //     //base case
+    //     //如果坐标越界直接返回,是海洋返回，访问过了返回
+    //     if(!inArea(grid,r,c)||grid[r][c]!='1'){
+    //         return;
+    //     }
+    //     grid[r][c]='2'; // 记录过的格子标记为2
+    //     dfs(grid,r-1,c);
+    //     dfs(grid,r+1,c);
+    //     dfs(grid,r,c-1);
+    //     dfs(grid,r,c+1);
+    // }
+    // bool inArea(vector<vector<char>>&grid,int r,int c){
+    //     return 0<=r&&r<grid.size()&&0<=c&&c<grid[0].size();
+    // }
+    
+        function inArea(grid, r, c) {
+            return 0 <= r && r < grid.length && 0 <= c && c < grid[0].length
+        }
+        // function dfs(grid, r, c) {
+        //     if (!inArea(grid, r, c) || grid[r][c] !== 1) {
+        //         return
+        //     }
+        //     grid[r][c] = 0
+        //     dfs(grid, r-1, c)
+        //     dfs(grid, r+1, c)
+        //     dfs(grid, r, c-1)
+        //     dfs(grid, r, c+1)
+        // }
+        // let grid = [[1,0,0],[0,1,0],[0,0,1]]
+        // let grid = [[1,1,0],[1,1,0],[0,0,1]]
+        let grid = [[1,1,0,0,1,0],[1,0,1,1,0,1],[1,1,0,0,1,0],[1,0,1,1,1,0],[1,1,0,0,1,0],[0,0,0,1,0,1]]
+        function findCircleNum(grid, r, c) {
+            let count = 0
+            let dfs = function(grid, r, c) {
+                if (!inArea(grid, r, c) || grid[r][c] !== 1) {
+                    return
+                }
+                grid[r][c] = 0
+                dfs(grid, r-1, c)
+                dfs(grid, r+1, c)
+                dfs(grid, r, c-1)
+                dfs(grid, r, c+1)
+            }
+            
+            for(let i = 0; i < grid.length; i++) {
+                for (let j = 0; j < grid[0].length; j++) {
+                    if (grid[i][j] === 1) {
+                        count++
+                    }
+                    dfs(grid, i, j)
+                }
+            }
+            return count
+        }
+        console.log(findCircleNum(grid, 2, 2))
+
+        // 自己写的
+        // function abc(list) {
+        //     let rowsCount = list.length
+        //     let colsCount = list[0].length
+        //     let sum = 0
+        //     for (let i=0; i < rowsCount;i++) {
+        //         for (let j=0; j < colsCount;j++) {
+        //             if (list[i][j] === 1) {
+        //                 sum++
+        //                 walk(list, i, j)
+        //                 console.log('list',JSON.stringify(list))
+        //             }
+        //         }
+        //     }
+        //     return sum
+        // }
+
+        // function walk(arr, i, j) {
+        //     if (arr?.[i]?.[j] === 1) {
+        //         arr[i][j] = 0
+        //         walk(arr, i+1, j)
+        //         walk(arr, i, j+1)
+        //         walk(arr, i-1, j)
+        //         walk(arr, i, j-1)
+        //     }
+        // }
+        // console.log(abc(arr))
+    </script>
+</body>
+</html>

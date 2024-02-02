@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+
+function exist(node, target) {
+    if (node.value === target.value) {
+        return target
+    }
+    if (!node.left || !node.right) { // 至少有一个孩子不存在
+        if (!node.left && !node.right) {
+            return false
+        } else if (node.left) {
+            return exist(node.left, target)
+        }
+        return exist(node.right, target)
+    } // 两个孩子都存在
+    return exist(node.left, target) || exist(node.right, target)
+}
+
+function lowestCommonAncestor(node, p, q) {
+    if (!node || node.value === p.value || node.value === q.value) {
+        return node
+    }
+    if (node.left) {
+        lowestCommonAncestor(node.left, p, q)
+    }
+    
+    //  else if (exist(node.left, p))
+}
+
+        let root = [3,5,1,6,2,0,8,null,null,7,4]
+        let p = 5, q = 1
+
+        let obj1 = {
+            value: 3,
+            left: {
+                value: 5,
+                left: {
+                    value: 6
+                },
+                right: {
+                    value: 2,
+                    left: {
+                        value: 7,
+                    },
+                    right: {
+                        value: 4
+                    }
+                }
+            },
+            right: {
+                value: 1,
+                left: {
+                    value: 0
+                },
+                right: {
+                    value: 8
+                }
+            }
+        }
+
+        var search = function(root, p, paths) {
+            paths.push(root)
+            if (p.value === root.value) {
+                return true
+            }
+            let r1 = false
+            if (root.left) {
+                r1 = search(root.left, p, paths)
+                if (r1) {
+                    return true
+                }
+            }
+            let r2 = false 
+            if (root.right) {
+                r2 = search(root.right, p, paths)
+                if (r2) {
+                    return true
+                }
+            }
+            if (r1 || r2) {
+                return true
+            }
+            paths.pop()
+            return false
+        }
+
+        var lowestCommonAncestor = function(root, p1, q1) {
+            let p = {value: p1}
+            let q = {value: q1}
+            let pPaths = []
+            search(root, p, pPaths)
+
+            let qPaths = []
+            search(root, q, qPaths)
+            let len = Math.min(pPaths.length, qPaths.length)
+            let parentNode = null
+            for (let i = 0; i < len; i++) {
+                if (qPaths[i].value === pPaths[i].value) {
+                    parentNode = qPaths[i]
+                } else {
+                    return parentNode.value
+                }
+            }
+        };
+        console.log(lowestCommonAncestor(obj1, 5, 1))
+
+        
+// DFS深度优先 -- 可以理解为灭族，先杀他还是先杀他左边的孩子，还是先杀他右边的孩子。
+        // 先、中、后序遍历都是DFS
+        function preOrder(obj, cb) {
+            typeof cb === 'function' && cb(obj)
+            if (obj.left) {
+                preOrder(obj.left, cb)
+            }
+            if (obj.right) {
+                preOrder(obj.right, cb)
+            }
+        }
+        // console.log(preOrder(obj1, (obj) => {
+        //     console.log(obj.value)
+        // }))
+        // 3,5,6,2,7,4,1,0,8
+
+        function inOrder(obj, cb) {
+            obj.left && inOrder(obj.left, cb)
+            typeof cb === 'function' && cb(obj)
+            obj.right && inOrder(obj.right, cb)
+        }
+        // console.log(inOrder(obj1, (obj) => {
+        //     console.log(obj.value)
+        // }))
+        // 6,5,7,2,4,3,0,1,8
+
+        function postOrder(obj, cb) {
+            obj.left && postOrder(obj.left, cb)
+            obj.right && postOrder(obj.right, cb)
+            typeof cb === 'function' && cb(obj)
+        }
+        // console.log(postOrder(obj1, (obj) => {
+        //     console.log(obj.value)
+        // }))
+        // 6,7,4,2,5,0,8,1,3
+// 广度优先
+        // function BSF(obj, cb) {
+        //     let arr = [obj]
+        //     while(arr.length > 0) {
+        //         let node = arr.shift()
+        //         cb(node)
+        //         if (node.left) {
+        //             arr.push(node.left)
+        //         }
+        //         if (node.right) {
+        //             arr.push(node.right)
+        //         }
+        //     }
+        // }        
+        // console.log(BSF(obj1, (obj) => {
+        //     console.log(obj.value)
+        // }))
+        // 3,5,1,6,2,0,8,7,4
+
+// output: 3
+// function lowestCommonAncestor(node, p, q) {
+//     if (!node) {
+//         return null
+//     }
+//     if (node?.value === p || node?.value === q) {
+//         return node;
+//     }
+//     let leftNode = lowestCommonAncestor(node.left, p, q)
+//     let rightNode = lowestCommonAncestor(node.right, p, q)
+//     if (leftNode && rightNode) {
+//         return node
+//     }
+//     if (leftNode && !rightNode) {
+//         return leftNode
+//     } else if (!leftNode && rightNode) {
+//         return rightNode
+//     }
+//     return null;
+// }
+
+//         console.log(fn(obj1, 4, 6))
+    </script>
+</body>
+</html>
+<!-- 
+let obj = {
+    value: 3,
+    children: [{
+        value: 5,
+        children: [{
+            value: 6,
+            children: []
+        }, {
+            value: 2,
+            children: [{
+                value: 7,
+                children: []
+            }, {
+                value: 4,
+                children: []
+            }]
+        }]
+    }, {
+        value: 1,
+        children: [{
+            value: 0,
+            children: []
+        }, {
+            value: 8,
+            children: []
+        }]
+    }]
+} -->
+
+<!-- public class Solution {
+    public TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q) {
+        if (root == null || root == p || root == q) {
+            return root;
+        }
+        TreeNode left = lowestCommonAncestor(root.left, p, q);
+        TreeNode right = lowestCommonAncestor(root.right, p, q);
+        if (left != null && right != null) {
+            return root;
+        }
+        return left != null ? left : right;
+    }
+}
+————————————————
+版权声明：本文为CSDN博主「okokabcd」的原创文章，遵循CC 4.0 BY-SA版权协议，转载请附上原文出处链接及本声明。
+原文链接：https://blog.csdn.net/ln_ydc/article/details/127242488 -->

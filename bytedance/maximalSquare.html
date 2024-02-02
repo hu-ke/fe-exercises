@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        // let backtrack = (data, row, col) => {
+        //     if (row >= data.length || col >= data[0].length || row < 0 || col < 0) {
+        //         return
+        //     }
+        //     if (data[row][col] == 1) {
+        //         count ++
+        //         data[row][col] = 0
+        //         backtrack(data, row - 1, col)
+        //         backtrack(data, row, col + 1)
+        //         backtrack(data, row, col - 1)
+        //         backtrack(data, row + 1, col)
+        //     }
+        // }
+
+        // 动态规划O(mn)
+        function maximalSqure(matrix) {
+            let m = matrix.length
+            let n = matrix[0].length
+            dp = new Array();             //声明一维数组        
+            for(var x=0;x<m+1;x++){
+                dp[x]=new Array();        //声明二维数组
+                for(var y=0;y<n+1;y++){
+                    dp[x][y]=0;          //数组初始化为0
+                }
+            }
+            let res = 0
+
+            for (let i = 1; i <= m;i++) {
+                for (let j = 1; j <= n; j++) {
+                    if (matrix[i-1][j-1] == '1') {
+                        dp[i][j] = Math.min(Math.min(dp[i][j-1], dp[i-1][j]), dp[i-1][j-1]) + 1
+                        res = Math.max(res, dp[i][j])
+                    }
+                }
+            }
+            return res * res
+        }
+        let matrix = [["1","0","1","0","0"],["1","0","1","1","1"],["1","1","1","1","1"],["1","0","0","1","0"]]
+        console.log(maximalSqure(matrix))
+// my solution O(mn*min(m,n)^2)
+// let matrix = [["1","0","1","0","0"],["1","0","1","1","1"],["1","1","1","1","1"],["1","0","0","1","0"]]
+// function getMaxAreaOfCurrent(i, j, matrix) {
+//     let x = 1
+//     while(
+//         matrix?.[i+1]?.[j] == 1 && 
+//         matrix?.[i+1]?.[j+1] == 1 && 
+//         matrix?.[i]?.[j+1] == 1
+//     ) {
+//         x++
+//         i++
+//         j++
+//     }
+//     return x*x
+// }
+// function maximalSquare(matrix) {
+//     let maxArea = 0
+//     let rowsLen = matrix.length
+//     for (let i=0; i < rowsLen;i++) {
+//         let colsLen = matrix[i].length
+//         for (let j=0; j < colsLen;j++) {
+//             if (matrix[i][j] == 1) {
+//                 let s = getMaxAreaOfCurrent(i, j, matrix)
+//                 maxArea = Math.max(s, maxArea)
+//             }
+//         }
+//     }
+//     return maxArea
+// }
+// console.log(maximalSquare(matrix))
+    </script>
+</body>
+</html>

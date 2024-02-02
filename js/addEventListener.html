@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <style>
+        #outer {
+            width: 200px;
+            height: 200px;
+            border: 1px solid red;
+        }
+    </style>
+    <div id="outer">
+        <section id="item1">
+            item1
+            <p id="item1-title">
+                Lorem ipsum dolor sit amet c
+            </p>
+        </section>
+    </div>
+    <script>
+        // 重点：理解事件传播的三个阶段：捕获阶段，目标阶段，冒泡阶段。理解eventPhase
+        // The stopPropagation() method of the Event interface prevents further propagation of the current event in the capturing and bubbling phases. 
+        // Event 接口的 stopPropagation() 方法阻止捕获和冒泡阶段中当前事件的进一步传播。
+        let outerEle = document.querySelector('#outer')
+        outerEle.addEventListener('click', (e) => {
+            e.stopPropagation()
+            console.log('outer clicked..', e.target.tagName, e.eventPhase)
+        }, true)
+
+        let item1Ele = document.querySelector('#item1')
+        item1Ele.addEventListener('click', (e) => {
+            console.log('item1 clicked..', e.target.tagName, e.eventPhase)
+        }, true)
+
+        let item1TitleEle = document.querySelector('#item1-title')
+        item1TitleEle.addEventListener('click', (e) => {
+            console.log('item1Title clicked..', e.target.tagName, e.eventPhase);
+        }, false)
+    </script>
+</body>
+</html>

@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        // 1.
+        // setTimeout(()=>{
+        //     new Promise(resolve =>{
+        //         resolve();
+        //     }).then(()=>{
+        //         console.log('test');
+        //     });
+        //     console.log(4);
+        // });
+
+        // new Promise(resolve => {
+        //     resolve();
+        //     console.log(1)
+        // }).then(() => {
+        //     console.log(3);
+        //     Promise.resolve().then(() => {
+        //         console.log('before timeout');
+        //     }).then(() => {
+        //         Promise.resolve().then(() => {
+        //             console.log('also before timeout')
+        //         })
+        //     })
+        // })
+
+        // console.log(2);
+        
+        // 2. 算法题, 要求o(n)
+        // 以空间换时间
+        // 输入：[3,1,2,7,8,9,6]
+        // 输出：[7,2,7,8,9,-1,-1]
+        // 给定一个数字数组，找到数组每个值后面第一个大于的它自身的元素，如果没找到，设为-1。最后返回一个包含所有找到的值的新数组
+        // 示例
+        // 输入：[1, 5, 8, 7, 2, 9, 2]
+        // 输出：[5, 8, 9, 9, 9, -1, -1]
+        // 要求：O(n)
+        // 1. 栈为空，则当前索引i入栈；
+        // 2. 栈不为空，如果栈顶索引元素大于等于当前元素，则将当前索引i入栈；（目的是为了保持栈从栈底到栈顶非升序）
+        // 3. 栈不为空，当前元素大于栈顶索引元素，则栈顶索引元素对应的第一个比它大的元素就是当前元素，保存当前元素；同时为了保证栈底到栈顶非升序需要将栈顶元素弹出，直到满足1、2条件。
+        // function findNextBigger(arr) {
+        //     if (arr === null || arr.length === 1) {
+        //         return arr
+        //     }
+        //     let newArr = new Array(arr.length)
+        //     let stack = []
+        //     for (let i = 0; i < arr.length; i++) {
+        //         let peek = stack[stack.length - 1]
+        //         if (stack.length === 0 || arr[i] <= peek) {
+        //             stack.push(i)
+        //         } else {
+        //             while(!stack.length === 0 && arr[i] > peek) {
+        //                 newArr[stack.pop()] = arr[i]
+        //             }
+        //             stack.push(i)
+        //         }
+        //         while(!stack.empty()) {
+        //             newArr[stack.pop()] = -1
+        //         }
+        //         return newArr
+        //     }
+        // }
+
+
+        // var name = "2222"
+        var a={
+            name:"111",
+            say:function(){
+                console.info(this.name);	
+            }
+        }
+
+        // var fun = a.say;
+        // fun();
+        // a.say();
+        var b = {
+            name:"333",
+            say:function(){
+                (function() {
+                    console.log(this.name)
+                })()
+            }
+        }
+
+        // b.say()
+        // b.say(function(){
+        //     console.info(this.name);	
+        // });
+        b.say = a.say;
+        b.say();
+
+    </script>
+</body>
+</html>

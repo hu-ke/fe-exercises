@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        const arr = [1,3,7,4,8,20,-1,10, 100, -100]
+        function swap(list, a, b) {
+            const temp = list[a]
+            list[a] = list[b];
+            list[b] = temp;
+        }
+        function selectSort(nums, isDesc = false) {
+            for (let i = 0; i < nums.length; i++) {
+                for (let j = i + 1; j < nums.length; j++) { //
+                    let ai = nums[i];
+                    let aj = nums[j];
+                    if (isDesc ? ai < aj : ai > aj) {
+                        swap(nums, i, j);
+                    }
+                }
+            }
+            return nums;
+        }
+        selectSort(arr)
+        console.log(arr)
+    </script>
+</body>
+</html>

@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        let grid = [[0,0,1,0,0,0,0,1,0,0,0,0,0],[0,0,0,0,0,0,0,1,1,1,0,0,0],[0,1,1,0,1,0,0,0,0,0,0,0,0],[0,1,0,0,1,1,0,0,1,0,1,0,0],[0,1,0,0,1,1,0,0,1,1,1,0,0],[0,0,0,0,0,0,0,0,0,0,1,0,0],[0,0,0,0,0,0,0,1,1,1,0,0,0],[0,0,0,0,0,0,0,1,1,0,0,0,0]]
+        function maxAreaOfIsland(data) {
+            let result = 0
+            let count = 0
+            let backtrack = (data, row, col) => {
+                if (row >= data.length || col >= data[0].length || row < 0 || col < 0) {
+                    return
+                }
+                if (data[row][col] == 1) {
+                    count ++
+                    data[row][col] = 0
+                    backtrack(data, row - 1, col)
+                    backtrack(data, row, col + 1)
+                    backtrack(data, row, col - 1)
+                    backtrack(data, row + 1, col)
+                }
+            }
+            for (let i = 0; i < data.length; i++) {
+                for (let j = 0; j < data[i].length; j++) {
+                    backtrack(data, i, j)
+                    result = Math.max(result, count)
+                    count = 0
+                }
+            }
+            return result
+        }
+        console.log(maxAreaOfIsland(grid))
+        // https://zhuanlan.zhihu.com/p/480696645
+    //     // DFS通用框架
+    //     void dfs(vector<vector<char>>&grid,int r,int c){
+    //     //base case
+    //     //如果坐标越界直接返回,是海洋返回，访问过了返回
+    //     if(!inArea(grid,r,c)||grid[r][c]!='1'){
+    //         return;
+    //     }
+    //     grid[r][c]='2'; // 记录过的格子标记为2
+    //     dfs(grid,r-1,c);
+    //     dfs(grid,r+1,c);
+    //     dfs(grid,r,c-1);
+    //     dfs(grid,r,c+1);
+    // }
+    // bool inArea(vector<vector<char>>&grid,int r,int c){
+    //     return 0<=r&&r<grid.size()&&0<=c&&c<grid[0].size();
+    // }
+    </script>
+</body>
+</html>

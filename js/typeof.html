@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+
+        console.log(('1').constructor === String)
+        console.log((1).constructor === Number)
+        console.log((true).constructor === Boolean)
+        // console.log((null).constructor === Null)
+        // console.log((undefined).constructor === undefined)
+        console.log(([]).constructor === Array)
+        console.log((function(){}).constructor === Function)
+        console.log(({}).constructor === Object)
+
+
+        function Fn() {};
+        Fn.prototype = new Array()
+
+        var f = new Fn()
+
+        console.log(f.constructor === Fn);
+        console.log(f.constructor === Array)
+
+        // var a = Object.prototype.toString;
+        // console.log(a.call('aaa'))
+        // console.log(a.call(1));
+        // console.log(a.call(true))
+        // console.log(a.call(null))
+        // console.log(a.call(undefined))
+        // console.log(a.call([]))
+        // console.log(a.call({}))
+    </script>
+</body>
+</html>

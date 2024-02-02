@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+      /* https://blog.csdn.net/HH18700418030/article/details/127006977 */
+      /* https://developer.mozilla.org/zh-CN/docs/Web/CSS/CSS_Flexible_Box_Layout/Basic_Concepts_of_Flexbox#flex_%E5%B1%9E%E6%80%A7%E7%9A%84%E7%AE%80%E5%86%99 */
+      /* 第一个数值是 flex-grow。赋值为正数的话是让元素增加所占空间。第二个数值是flex-shrink — 正数可以让它缩小所占空间，但是只有在 flex 元素总和超出主轴才会生效。最后一个数值是 flex-basis；flex 元素是在这个基准值的基础上缩放的。 */
+        * {
+          padding: 0;
+          margin: 0;
+        }
+        .container {
+          width: 600px;
+          height: 300px;
+          display: flex;
+        }
+        .left {
+          /* flex: 1 2 500px; */
+          flex-basis: 500px;
+          flex-shrink: 2;
+          background: red;
+        }
+        .right {
+          /* flex: 2 1 400px; */
+          flex-basis: 400px;
+          flex-shrink: 1;
+          background: blue;
+        }
+      /* left最终缩小量为：
+        溢出空间 = 500px + 400px - 600px = 300px
+        分母：500 * 2 + 400 * 1 = 1400
+        left分子：500 * 2
+        left缩小量：500 * 2 / 1400 * 300 = 285.72px
+      */
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="left"></div>
+        <div class="right"></div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        let arr = [2,1,35,6,10,24,44]
+        // output: [[2,1],[1,35],[35,6][6,10,24,44]]
+
+        function process(arr) {
+            if (!arr) {
+                return []
+            }
+            let len = arr.length
+            if (len <= 2) {
+                return arr
+            }
+            let list = []
+            let temp = []
+            let isDown = arr[1] < arr[0]
+            let preVal = arr[0]
+            arr.forEach((item, index) => {
+                if (index === 0) {
+                    temp = [item]
+                    return
+                }
+                if (isDown) {
+                    if (item < preVal) {
+                        temp.push(item)
+                        preVal = item
+                    } else {
+                        list.push(temp)
+                        temp = [preVal, item]
+                        preVal = item
+                        isDown = false
+                    }
+                } else {
+                    if (item > preVal) {
+                        temp.push(item)
+                        preVal = item
+                    } else {
+                        list.push(temp)
+                        temp = [preVal, item]
+                        preVal = item
+                        isDown = true
+                    }
+                }
+                if (index === len - 1) {
+                    list.push(temp)
+                }
+            })
+            return list
+        }
+
+        console.log(process(arr))
+    </script>
+</body>
+</html>

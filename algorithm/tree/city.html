@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        const root = [{
+            id: 'axzx',
+            name: '广东省',
+            children: [
+                {
+                    id: 'sdsd',
+                    name: '深圳市',
+                    children: [
+                        {
+                            id: '45dss',
+                            name: '南山区'
+                        },
+                        {
+                            id: 'sdsd11',
+                            name: '福田区',
+                            children: [{
+                                id: 'ddrr2',
+                                name: 'A街道'
+                            }]
+                        }
+                    ]
+                },
+                {
+                    id: '2323d',
+                    name: '东莞市',
+                    children: [
+                        {
+                            id: 'xxs2',
+                            name: 'A区'
+                        },
+                        {
+                            id: 'kklio2',
+                            name: 'B区',
+                        }
+                    ]
+                }
+            ]
+        }];
+
+function search(arr, id) {
+    if (!Array.isArray(arr) || arr.length === 0) {
+        return null
+    }
+
+    while(arr.length > 0) {
+        let item = arr.shift()
+        let path = []
+        let target = loop2(item, id, path)
+        if (target) {
+            return path
+        }
+    }
+    return null
+}
+console.log(search(root, '2323d'))
+
+        // dfs
+// 非二叉树没有中序和后序
+function loop2(root, id, path) {
+    path.push(root)
+    if (root.id === id) {
+        return root
+    }
+    if (root.children) {
+        let len = root.children.length
+        for (let i = 0; i < len; i++) {
+            let t = loop2(root.children[i], id, path)
+            if (t) {
+                return t
+            } else {
+                path.pop()
+            }
+        }
+    }
+    return null
+}
+// my solution
+// function search(id, node) {
+//     let path = []
+//     function DFS(node) {
+//         path.push(node)
+//         if (node.id === id) {
+//             return node
+//         }
+//         if (Array.isArray(node.children)) {
+//             for (let i=0;i<node.children.length;i++) {
+//                 if (DFS(node.children[i])) {
+//                     return node.children[i]
+//                 } else {
+//                     path.pop()
+//                 }
+//             }
+//         }
+//     }
+//     DFS(node)
+//     return path
+// }
+
+function getPaths(root, id) {
+    if (root.id === id) {
+        return [root]
+    }
+    let paths = [root]
+    loop(paths, id, root.children)
+    function loop(paths, id, children) {
+        console.log('loop..')
+        for (let i = 0; i < children?.length; i++) {
+            let child = children[i]
+            paths.push(child)
+            console.log('child', child)
+            if (child.id === id) {
+                console.warn(id, JSON.parse(JSON.stringify(paths)))
+                return paths
+            }
+            if (child.children) {
+                if (loop(paths, id, child.children)) {
+                    return paths
+                }
+            }
+            paths.pop()
+        }
+    }
+    return paths
+}
+let paths = getPaths(root, 'sdsd11')
+console.log('paths', paths)
+
+        // bfs
+        // function loop(root, id) {
+        //     let arr = [root]
+        //     while(arr.length > 0) {
+        //         let item = arr.pop();
+        //         if (item.id === id) {
+        //             return item
+        //         } else if (item.children) {
+        //             let len = item.children.length
+        //             for (let i = 0; i < len; i++) {
+        //                 arr.push(item.children[i])
+        //             }
+        //         }
+        //     }
+        // }
+
+        // const fn = (data, value) => {
+        //     let res = []
+        //     const dfs = (arr, temp = []) => {
+        //         for (const node of arr) {
+        //             if (node.children) {
+        //                 dfs(node.children, temp.concat(node.id))
+        //             } else {
+        //                 if (node.id === value) {
+        //                     res = temp
+        //                     return
+        //                 }
+        //             }
+        //         }
+        //     }
+        //     dfs(data)
+        //     return res
+        // }
+        // console.log(fn(root, 'sdsd'))
+    </script>
+</body>
+</html>

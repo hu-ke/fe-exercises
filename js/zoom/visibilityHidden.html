@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <!-- visibilityHidden, opacity, display none区别 -->
+    <style>
+        .box {
+            width: 200px;
+            height: 50px;
+            border: 1px solid red;
+            opacity: 0;
+            /* visibility: hidden; */
+        }
+        .box2 {
+            width: 200px;
+            height: 50px;
+            background: blue;
+        }
+    </style>
+</head>
+<body>
+    <div style="width: 100px; height: 50px;background-color: red;"></div>
+    <div class="box"></div>
+    <div class="box2"></div>
+    <script>
+        let box = document.querySelector('.box')
+        box.addEventListener('click', () => {
+            alert('box clicked')
+        })
+    </script>
+</body>
+</html>

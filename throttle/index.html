@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+        html, body {
+            height: 200%;
+        }
+    </style>
+</head>
+<body>
+    <script>
+        function throttle(func, ms = 1000) {
+            let canRun = true
+            return function (...args) {
+                if (canRun) {
+                    func.apply(this, args)
+                    canRun = false
+                    setTimeout(() => {
+                        canRun = true
+                    }, [ms])
+                }
+                return;
+            }
+        }
+
+
+         // 测试
+        const task = (params) => { console.log('run task', params) }
+        const throttleTask = throttle(task, 1000)
+        window.addEventListener('scroll', throttleTask)
+
+        window.addEventListener('unload', () => {
+            alert()
+        })
+    </script>
+</body>
+</html>

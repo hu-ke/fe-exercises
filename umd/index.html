@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <!-- 1.如果直接加载，index.js脚本执行时会在window对象中添加example-component -->
+    <!-- <script src="http://localhost:4567/index.js"></script> -->
+    <script>
+        // console.log(window)
+
+        class Sandbox {
+            constructor() {
+                this.propertyAdded = {}
+
+                const proxyWindow = Object.create(null, {
+                    sss: {
+                        bb: 11
+                    }
+                });
+                let sandbox = new Proxy(proxyWindow, {
+                    set(target, p, value) {
+                        console.log('target, p, value', target, p, value)
+                        target[p] = value
+                        if (window.hasOwnProperty(p)) {
+                            this.propertyAdded[p] = value
+                        }
+                        // window[p] = value // 不赋值，window下就没有
+
+                        return true
+                    },
+                    get(target, p) {
+                        console.log('p>>>', p)
+                        if (p === Symbol.unscopables) {
+                            return undefined;
+                        }
+                        if (['top', 'window', 'self', 'globalThis'].includes(p)) {
+                            return sandbox;
+                        }
+                        const targetValue = target[p];
+                        /**
+                         * Falsy value like 0/ ''/ false should be trapped by proxy window.
+                         */
+                        console.log('targetValue', targetValue)
+                        if (targetValue !== undefined) {
+                            // case of addEventListener, removeEventListener, setTimeout, setInterval setted in sandbox
+                            return targetValue;
+                        }
+                    },
+                    // !!!!!!!非常非常重要
+                    has(target, p) { // 注释掉看看
+                        return p in target || p in window;
+                    },
+                })
+                this.sandbox = sandbox
+            }
+            getSandbox() {
+                return this.sandbox;
+            }
+            execScriptInSandbox(script) {
+                try {
+                    const execScript = `with (sandbox) {;${script}\n}`;
+                    // eslint-disable-next-line no-new-func
+                    const code = new Function('sandbox', execScript).bind(this.sandbox);
+                    // run code with sandbox
+                    code(this.sandbox);
+                    console.log(this, window)
+                } catch (error) {
+                    console.error(`error occurs when execute script in sandbox: ${error}`);
+                    throw error;
+                }
+            }
+
+        }
+
+        let sandbox = (new Sandbox())
+        // 2.通过proxy代理，会在proxy对象下挂载example-component
+        function fn() {
+
+            fetch('http://localhost:4567/index.js')
+                .then((res) => {
+                    // return res.text()
+                    return `
+                    // if the module has no dependencies, the above pattern can be simplified to
+                    (function (root, factory) {
+                        if (typeof define === 'function' && define.amd) {
+                            // AMD. Register as an anonymous module.
+                            define([], factory);
+                        } else if (typeof exports === 'object') {
+                            // Node. Does not work with strict CommonJS, but
+                            // only CommonJS-like environments that support module.exports,
+                            // like Node.
+                            module.exports = factory();
+                        } else {
+                            // Browser globals (root is window)
+                            root['abc'] = factory();
+                        }
+                    }(this, function () { // this改为window试试，改为this.window试试
+                        this.console.log('window', window)
+                        this.console.log('this', this)
+                        // Just return a value to define the module export.
+                        // This example returns an object, but the module
+                        // can return a function as the exported value.
+                        return {
+                            name: 'huke'
+                        };
+                    }));
+                `
+                }).then(res => {
+
+                    sandbox.execScriptInSandbox(res)
+                    // console.log('sandbox>>', sandbox, window)
+                })
+        }
+
+        fn()
+
+    </script>
+</body>
+
+</html>

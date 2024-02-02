@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        function f(num) {
+            let s = `${num}`
+            if (s.length === 1) {
+                return 1;
+            }
+            let n = s.length
+            let arr = [1]
+            for (let i = 1; i <= n; i++) {
+                let part1 = arr[i - 1]
+                let value = `${s[i - 2]}${s[i - 1]}`
+                let part2 = 0
+                if (parseInt(value) >= 10 && parseInt(value) <= 25) {
+                    part2 = arr[i - 2]
+                }
+                arr[i] = part1 + part2;
+            }
+            return arr.pop()
+        }
+        console.log(f(12225))
+    </script>
+</body>
+</html>

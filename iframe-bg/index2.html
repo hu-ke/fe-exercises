@@ -1,0 +1,26 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title></title>
+</head>
+<body>
+<iframe id="showValue" style="width: 400px; height: 400px; border: 0px; solid: #000;" src="about:blank"></iframe>
+ 
+ 
+<script type="text/javascript">
+    window.onload = function () {
+        document.getElementById("showValue").contentWindow.document.designMode = "on";
+        document.getElementById("showValue").contentWindow.document.contentEditable = true;
+
+        var div = document.createElement("DIV");
+        div.id = "divName";
+        div.innerHTML = "我在这里了哈";
+        div.style.cssText = "border:1px solid #ccc;height:200px;width:200px;color:red;";
+
+        document.getElementById("showValue").contentWindow.document.body.appendChild(div);
+    }
+</script>
+
+</body>
+</html>

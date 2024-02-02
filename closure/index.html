@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        function createBase(baseNumber) {
+            let store = baseNumber
+            return function(N) {
+                // 我们在这里访问 baseNumber，即使它是在这个函数之外声明的。
+                // JavaScript 中的闭包允许我们这么做。
+                store = store + N
+                return store;
+            }
+        }
+        var addSix = createBase(6);
+        console.log(addSix(10));
+        console.log(addSix(21));
+    </script>
+</body>
+</html>

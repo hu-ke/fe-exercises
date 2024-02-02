@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .box {
+            position: relative;
+            background-color: purple;
+            opacity: 0.5;
+            width: 400px;
+            display: flex;
+            overflow-y: visible;
+        }
+        /* .box2 {
+            display: flex;
+            overflow-x: hidden;
+            overflow-y: visible;
+        } */
+        .item {
+            flex-shrink: 0;
+            background-color: red;
+            width: 200px;
+            height: 100px;
+            position: relative;
+            margin-right: 5px;
+        }
+        .footer {
+            position: absolute;
+            left: 0;
+            top: calc(100% + 10px);
+            background-color: red;
+            height: 50px;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+    <div class="box">
+        <div class="item">
+            <div class="footer"></div>
+        </div>
+        <div class="item">
+            <div class="footer"></div>
+        </div>
+        <div class="item">
+            <div class="footer"></div>
+        </div>
+        <div class="item">
+            <div class="footer"></div>
+        </div>
+        <div class="item">
+            <div class="footer"></div>
+        </div>
+    </div>
+</body>
+</html>

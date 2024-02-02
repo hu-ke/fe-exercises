@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        let str = 'abcabcbb'
+
+        function lengthOfLongestSubstring(str) {
+            if (!str) {
+                return 0;
+            }
+            let len = str.length
+            let maxLen = 0;
+            for (let i = 0; i < len; i++) {
+                for (let j = i; j < len; j++) {
+                    let currentStr = str.slice(i, j)
+                    if (!hasRepeat(currentStr) && currentStr.length > maxLen) {
+                        maxLen = currentStr.length
+                    } 
+                }
+            }
+            return maxLen
+        }
+
+        function hasRepeat(str) {
+            let arr = []
+            let len = str.length
+            for (let i = 0; i < len; i++) {
+                if (!arr.includes(str[i])) {
+                    arr.push(str[i])
+                }
+            }
+            return arr.length < len
+        }
+
+        console.log(lengthOfLongestSubstring2(str))
+    </script>
+</body>
+</html>

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+// 接雨水
+let trap = function(height) {
+    let res = 0, left = 0, right = height.length - 1,lmax = 0, rmax = 0
+    while(left <= right) {
+        lmax = Math.max(lmax, height[left])
+        rmax = Math.max(rmax, height[right])
+        if (lmax < rmax) {
+            res = res + (lmax - height[left])
+            left++
+        } else {
+            res = res + (rmax - height[right])
+            right--
+        }
+    }
+    return res
+}
+    </script>
+</body>
+</html>

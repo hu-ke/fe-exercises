@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        let nums = [4,5,6,7,0,1,2]
+
+function search(nums, i, j, target) {
+    let mid = parseInt((i + j) / 2)
+    if (nums[mid] === target) {
+        return mid
+    }
+    if (nums[mid - 1] < nums[mid]) { // 左边有序，右边无序
+        if (target <= nums[mid-1] && target >= nums[i]) {
+            return bSearch(nums, i, mid - 1, target)
+        } else {
+            return search(nums, mid + 1, j, target)
+        }
+    } else { // 左边无序，右边有序 
+        if (target > nums[mid+1] && target <= nums[j]) {
+            return bSearch(nums, mid + 1, j, target)
+        } else {
+            return search(nums, i, mid - 1, target)
+        }
+    }
+}
+
+function bSearch(nums, i, j, target) {
+    if (i > j) {
+        return -1
+    }
+    let mid = parseInt((i + j) / 2)
+    if (nums[mid] === target) {
+        return mid
+    } else if (nums[mid] > target) {
+        j = mid - 1
+        return bSearch(nums, i, j, target)
+    } else if (nums[mid] < target) {
+        i = mid + 1
+        return bSearch(nums, i, j, target)
+    } else {
+        return -1
+    }
+}
+
+function bSearch2(arr, item) {
+    let low = 0
+    let high = arr.length-1
+    while(low < height) {
+        let mid = parseInt((height + low) / 2)
+        let guess = arr[mid]
+        if (guess == item) {
+            return mid
+        } else if (guess > item) {
+            height = mid - 1
+        } else {
+            low = mid + 1
+        }
+    }
+    return -1
+}
+
+        console.log(search2(nums,6))
+    </script>
+</body>
+</html>

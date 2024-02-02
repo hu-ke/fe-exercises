@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        window.addEventListener('unhandledrejection', function(e) {
+            //阻断异常继续抛出
+            e.preventDefault();
+            console.log('unhandledrejection', e.reason) // 为什么直接打印e不行会造成rejectionhandled不会被执行？
+            return true
+        })
+        // // 被 reject 且有 reject 处理器的时候
+        window.addEventListener('rejectionhandled', (event) => {
+            console.log('rejectionhandled', event)
+        });
+
+        const p1 = new Promise((resolve, reject) => {
+            reject("promise error1");
+        });
+
+        setTimeout(() => {
+            p1.catch((e) => {
+                console.log("catch捕获到promise1 错误:", e);
+            });
+        }, 1000);
+       
+
+        // window.addEventListener('error', (error) => {
+        // console.log('error', error)
+        // })
+        // JSON.parse(undefined)
+        // console.log(123)
+    </script>
+</body>
+</html>

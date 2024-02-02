@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+<script>
+// 约定：
+// title数据类型为String
+// userId为主键，数据类型为Number
+const data = [
+  {userId: 8,  title: 'title1'},
+  {userId: 11, title: 'other'},
+  {userId: 15, title: null},
+  {userId: 19, title: 'title2'}
+];
+// const find = function(data) {
+//   let res = []
+//   let count = 0
+//   function where(condition) {
+//     if (Array.isArray(data)) {
+//       res = data.filter(item => {
+//         let passed = true
+//         Object.keys(condition).forEach(key => {
+//           passed = passed && condition[key].test(item[key])
+//         })
+//         return passed
+//       })
+//     }
+//     count++
+//     if (count === 1) {
+//       return {
+//         orderBy
+//       }
+//     } else {
+//       return res
+//     }
+//   }
+//   function orderBy(field, order) {
+//     if (!['asc', 'desc'].includes(order)) {
+//       return res
+//     }
+//     res.sort((a, b) => {
+//       if (order === 'asc') {
+//         return a[field] - b[field]
+//       } else {
+//         return b[field] - a[field]
+//       }
+//     })
+//     count++
+//     if (count === 1) {
+//       return {
+//         where
+//       }
+//     } else {
+//       return res
+//     }
+//   }
+//   // 代码写在这里...
+//   return {
+//     where,
+//     orderBy
+//   }
+// }
+
+// const find = function (origin) {
+//   let obj = new Object(origin);
+
+//   Object.defineProperty(obj, "where", {
+//     configurable: false, // 是否可配置
+//     enumerable: false, // 是否可迭代
+//     writable: false, // 是否可写
+//     value: function (where) {
+//       for (let key in where) {
+//         if (where.hasOwnProperty(key)) {
+//           obj = obj.filter((v) => where[key].test(v[key]));
+//         }
+//         return find(obj);
+//       }
+//     },
+//   });
+
+//   Object.defineProperty(obj, "orderBy", {
+//     configurable: false, // 是否可配置
+//     enumerable: false, // 是否可迭代
+//     writable: false, // 是否可写
+//     value: function (key, order) {
+//       obj.sort((a, b) => {
+//         if (order == "desc") {
+//           return b[key] - a[key];
+//         } else {
+//           return a[key] - b[key];
+//         }
+//       });
+//       return find(obj);
+//     },
+//   });
+
+//   return obj;
+// };
+
+class MyObj {
+  constructor(value) {
+    this._value = value
+    this.count = 0
+    this.res = []
+  }
+  where(condition) {
+    if (Array.isArray(this._value)) {
+      this.res = this._value.filter(item => {
+        let passed = true
+        Object.keys(condition).forEach(key => {
+          passed = passed && condition[key].test(item[key])
+        })
+        return passed
+      })
+    }
+    this.count++
+    if (this.count === 1) {
+      return this
+    } else {
+      return this.res
+    }
+  }
+  orderBy(field, order) {
+    if (!['asc', 'desc'].includes(order)) {
+      return this.res
+    }
+    this.res.sort((a, b) => {
+      if (order === 'asc') {
+        return a[field] - b[field]
+      } else {
+        return b[field] - a[field]
+      }
+    })
+    this.count++
+    if (this.count === 1) {
+      return this
+    } else {
+      return this.res
+    }
+  }
+}
+
+const find = function(data) {
+  let obj = new MyObj(data)
+  console.log(obj)
+  return obj
+}
+
+// 查找 data 中，符合条件的数据，并进行排序
+const result = find(data).where({
+  'title': /\d$/
+})
+.orderBy('userId', 'desc');
+
+const result1 = find(data).orderBy('userId', 'asc').where({
+  'title': /\d$/
+})
+
+console.log(result); // [ { userId: 19, title: 'title2' }, { userId: 8, title: 'title1' } ]
+console.log(result1); // [ { userId: 8, title: 'title1' }, { userId: 19, title: 'title2' } ]
+
+</script>
+</body>
+</html>

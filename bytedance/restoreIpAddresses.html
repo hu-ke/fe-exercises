@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <!-- it works -->
+    <script src="http://localhost:8001/a.js"></script>
+    <script>
+function restoreIpAddresses(str) {
+    // 当前这里可以加一个判断 字符串的条件，字符串长度必须大于等于 4
+    // 保存所有符合条件的 IP 地址
+    let s = []
+    let search = (cur, sub) => {
+        console.log(cur, sub)
+        // 递归的边界条件，数组长度等于 4 且组合起来与之前的字符串相等
+        if (cur.length === 4 && cur.join('') === str) {
+            s.push(cur.join('.'))
+        } else {
+            // 处理正常过程
+            // 每次最多循环三次
+            let len = Math.min(3, sub.length)
+            for (let i = 0; i < len; i++) {
+                // 截取字符串 1 ~ 3
+                let tmp = sub.substr(0, i + 1)
+                // 如果当前的数小于 256 说明在 255 范围内，接着递归调用(把不是范围内的排出掉)
+                // 例如 255255255， 截取第一次 2，第二次递归截取时 for循环第三次是 522 不在范围内
+                if(tmp < 256) {
+                    search(cur.concat([tmp]), sub.substr(i + 1))
+                }
+            }
+        }
+    }
+    search([], str)
+    return s
+}
+console.log(restoreIpAddresses('123258'))
+    </script>
+</body>
+</html>

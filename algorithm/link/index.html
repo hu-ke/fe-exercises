@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        // let arr = [1, 2, 3, 4, 5]
+        let k = 2
+        let head = {
+            value: 1,
+            next: {
+                value: 2,
+                next: {
+                    value: 3,
+                    next: {
+                        value: 4,
+                        next: {
+                            value: 5,
+                            next: null
+                        }
+                    }
+                }
+            }
+        }
+
+        function getNodeLength(node) {
+            if (!node) {
+                return 0;
+            }
+            let length = 1
+            let current = node
+            while(current.next) {
+                current = current.next
+                length++
+            }
+            return length
+        }
+
+        function toArray(node) {
+            if (!node) {
+                return null;
+            }
+            let current = node
+            let arr = []
+            while(current) {
+                arr.push(current)
+                current = current.next
+            }
+            return arr
+        }
+
+        function reverse(node, startIndex, endIndex) {
+
+            let nodeLength = getNodeLength(node)
+            if (startIndex >= nodeLength || endIndex < startIndex) {
+                return
+            }
+            let arr = toArray(node)
+            arr[startIndex].next = arr[endIndex + 1]
+            if (startIndex >= 1) {
+                arr[startIndex - 1].next = arr[endIndex]
+            } else if (startIndex === 0) {
+                node = arr[endIndex]
+            }
+            for (endIndex; endIndex > startIndex;endIndex--) {
+                arr[endIndex].next = arr[endIndex - 1]
+            }
+
+            return node;
+        }
+
+        // head = reverse(head, 0, 1)
+
+        function reverseKGroup(node, k) {
+            if (!node) {
+                return null;
+            }
+            let length = getNodeLength(node)
+
+            let oneRound = k
+            let remain = length % oneRound
+
+            let start = 0
+            let end = oneRound - 1;
+            while(end < length) {
+                node = reverse(node, start, end)
+                start = start + oneRound
+                end = end + oneRound
+            }
+            return node
+        }
+
+        console.log(reverseKGroup(head, 3))
+    </script>
+</body>
+</html>

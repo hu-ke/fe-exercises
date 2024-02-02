@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        let l1 = {
+            value: 1,
+            next: {
+                value: 4,
+                next: {
+                    value: 5,
+                    next: null
+                }
+            }
+        }
+        let l2 = {
+            value: 1,
+            next: {
+                value: 3,
+                next: {
+                    value: 4,
+                    next: null
+                }
+            }
+        }
+        let l3 = {
+            value: 2,
+            next: {
+                value: 6,
+                next: null
+            }
+        }
+
+        function toArray(node) {
+            if (!node) {
+                return null;
+            }
+            let current = node
+            let arr = []
+            while(current) {
+                arr.push(current)
+                current = current.next
+            }
+            return arr
+        }
+
+        function mergeTwoList(l1, l2) {
+            let arr1 = toArray(l1)
+            let arr2 = toArray(l2)
+            let newArr = []
+            while(arr1.length || arr2.length) {
+                let node1 = arr1[0]
+                let node2 = arr2[0]
+            }
+        }
+
+        function mergeKLists (...lists) {
+            // while(list.length > 0) {
+            //     let curL = list.shift()
+
+            // }
+        }
+        mergeKLists(l1,l2,l3)
+    </script>
+</body>
+</html>
