@@ -36,17 +36,17 @@
  * @param {number[]} nums
  * @return {number}
  */
-// var lengthOfLIS = function(nums) {
-//     let LEN = nums.length
-//     // [1,1,1,1,1,1,1,1]
-//     let dp = new Array(LEN).fill(1)
-//     for (let i = 1; i < LEN; i++) {
-//         for (let j = 0; j < i; j++) {
-//             if (nums[i] > nums[j]) {
-//                 dp[i] = Math.max(dp[i], dp[j] + 1)
-//             }
-//         }
-//     }
-//     return Math.max.apply(null, dp)
-// }
+var lengthOfLIS = function(nums) {
+    let LEN = nums.length
+    // [1,1,1,1,1,1,1,1]
+    let dp = new Array(LEN).fill(1)
+    for (let i = 1; i < LEN; i++) {
+        for (let j = 0; j < i; j++) {
+            if (nums[i] > nums[j]) {
+                dp[i] = Math.max(dp[i], dp[j] + 1)
+            }
+        }
+    }
+    return Math.max.apply(null, dp)
+}
 console.log(lengthOfLIS([10,9,2,5,3,7,101,18]))

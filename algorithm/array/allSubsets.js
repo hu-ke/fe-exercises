@@ -78,15 +78,15 @@ allSubsets(arr)
 // console.log(allSubsets(arr))
 
 // 方法3:其实和方法2思路差不多
-// const subsets = function(nums) {
-//     let res = [], len = nums.length;
-//     for (let i = 1; i < (1 << len); i++) {
-// 		let arr = [];
-//         for (let j = 0; j < len; j++) {
-//             if (i & (1 << j)) arr.push(nums[j]);
-//         }
-//         res.push(arr);
-//     }
-//     return res;
-// };
-// console.log(subsets([1,2,3]))
+const subsets = function(nums) {
+    let res = [], len = nums.length;
+    for (let i = 1; i < (1 << len); i++) {
+		let arr = [];
+        for (let j = 0; j < len; j++) {
+            if (i & (1 << j)) arr.push(nums[j]);
+        }
+        res.push(arr);
+    }
+    return res;
+};
+console.log(subsets([1,2,3]))
