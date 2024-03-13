@@ -31,8 +31,8 @@ function strRender(str, data) {
   } else if (!data) {
     return str
   }
-  // const regex = /\{\{\s?((\w|\.)+)\s?\}\}/
   const regex = /{{\s*(.+?)\s*}}/
+
   while (regex.test(str)) {
     const found = str.match(regex)
     const key = found[1]

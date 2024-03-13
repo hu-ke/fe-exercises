@@ -18,3 +18,4 @@ function test() {
 	b()
 }
 test()
+

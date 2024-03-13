@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <style>
+        #outer {
+            width: 200px;
+            height: 200px;
+            border: 1px solid red;
+        }
+        #inner {
+            width: 100px;
+            height: 100px;
+            border: 1px solid blue;
+        }
+    </style>
+    <div id="outer">
+        <div id="inner">
+            <section>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Culpa corporis molestiae error suscipit itaque atque fugiat aliquam dolorum earum, minima nobis vero. Minima temporibus dolorum nobis consequuntur veritatis impedit sed.</section>
+            <input id="innerInput" type="text" />
+        </div>
+    </div>
+    <script>
+        document.addEventListener('change', function() {
+            //...
+            console.log(123)
+        })
+
+        // let input = document.querySelectorAll('input')
+        // console.log(input)
+    </script>
+</body>
+</html>
