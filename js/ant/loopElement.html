@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div class="root">
+        <div class="container">
+          <section class="sidebar">
+            <ul class="menu"></ul>
+          </section>
+          <section class="main">
+            <article class="post"></article>
+            <p class="copyright"></p>
+          </section>
+        </div>
+      </div>
+<script>
+let root = document.querySelector('.root')
+
+// function DFS(root) {
+//     let res = []
+//     function _dfs(node) {
+//         res.push(node.className.toLowerCase())
+//         for (let child of node.children) {
+//             _dfs(child)
+//         }
+//     }
+//     _dfs(root)
+//     console.log(res)
+// }
+// DFS(root)
+
+function BFS(root) {
+    let res = []
+    function _bfs(node) {
+        let arr = [node]
+        while(arr.length > 0) {
+            let cur = arr.shift()
+            res.push(cur.className.toLowerCase())
+            for (let child of cur.children) {
+                arr.push(child)
+            }
+        }
+    }
+    _bfs(root)
+    console.log(res)
+}
+BFS(root)
+
+</script>      
+</body>
+</html>
