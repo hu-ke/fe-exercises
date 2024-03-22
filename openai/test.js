@@ -1,6 +1,9 @@
 import OpenAI from "openai";
+import apiKey from './apiKey.js';
 
-const openai = new OpenAI();
+const openai = new OpenAI({
+    apiKey
+});
 
 async function main() {
   const completion = await openai.chat.completions.create({
