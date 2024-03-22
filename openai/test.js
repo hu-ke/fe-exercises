@@ -6,12 +6,23 @@ const openai = new OpenAI({
 });
 
 async function main() {
-  const completion = await openai.chat.completions.create({
-    messages: [{ role: "system", content: "You are a helpful assistant." }],
-    model: "gpt-3.5-turbo",
+  const response = await openai.chat.completions.create({
+      model: "gpt-3.5-turbo",
+      messages: [
+        {
+          "role": "system",
+          "content": "日常生活小助理，回答尽可能详细，至少10点"
+        },
+        {
+          "role": "user",
+          "content": "坐月子的注意事项"
+        }
+      ],
+      temperature: 0.8,
+      top_p: 1,
   });
-
-  console.log(completion.choices[0]);
+  console.log(response.choices[0])
 }
+
 
 main();
