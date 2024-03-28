@@ -1,4 +1,11 @@
 {
     "name": "test-openai",
-    "type": "module"
+    "dependencies": {
+        "@google-cloud/speech": "^6.3.0",
+        "axios": "^1.6.8",
+        "node-microphone": "^0.1.6",
+        "node-record-lpcm16": "^1.0.1",
+        "pcm-stream": "^1.0.0",
+        "web-audio-api": "^0.2.2"
+    }
 }
