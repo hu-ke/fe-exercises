@@ -1,5 +1,5 @@
 Arguments: 
-  /Users/huke/.nvm/versions/node/v18.17.1/bin/node /Users/huke/.nvm/versions/node/v18.17.1/bin/yarn add node-pcm-stream
+  /Users/huke/.nvm/versions/node/v18.17.1/bin/node /Users/huke/.nvm/versions/node/v18.17.1/bin/yarn add @openai
 
 PATH: 
   /Users/huke/.pyenv/shims:/Users/huke/.nvm/versions/node/v18.17.1/bin:/opt/homebrew/bin:/opt/homebrew/sbin:/usr/local/bin:/System/Cryptexes/App/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin:/Users/huke/.pyenv/shims:/Users/huke/.nvm/versions/node/v18.17.1/bin:/Users/huke/Library/pnpm:/opt/homebrew/bin:/opt/homebrew/sbin
@@ -14,15 +14,15 @@ Platform:
   darwin arm64
 
 Trace: 
-  Error: https://registry.npm.taobao.org/node-pcm-stream: Not found
+  Error: https://registry.npm.taobao.org/@openai: [NOT_FOUND] /@openai not found
       at params.callback [as _callback] (/Users/huke/.nvm/versions/node/v18.17.1/lib/node_modules/yarn/lib/cli.js:66145:18)
       at self.callback (/Users/huke/.nvm/versions/node/v18.17.1/lib/node_modules/yarn/lib/cli.js:140890:22)
       at Request.emit (node:events:514:28)
       at Request.<anonymous> (/Users/huke/.nvm/versions/node/v18.17.1/lib/node_modules/yarn/lib/cli.js:141862:10)
       at Request.emit (node:events:514:28)
-      at IncomingMessage.<anonymous> (/Users/huke/.nvm/versions/node/v18.17.1/lib/node_modules/yarn/lib/cli.js:141784:12)
+      at Gunzip.<anonymous> (/Users/huke/.nvm/versions/node/v18.17.1/lib/node_modules/yarn/lib/cli.js:141784:12)
       at Object.onceWrapper (node:events:628:28)
-      at IncomingMessage.emit (node:events:526:35)
+      at Gunzip.emit (node:events:514:28)
       at endReadableNT (node:internal/streams/readable:1359:12)
       at process.processTicksAndRejections (node:internal/process/task_queues:82:21)
 
@@ -32,7 +32,9 @@ npm manifest:
       "dependencies": {
           "@google-cloud/speech": "^6.3.0",
           "axios": "^1.6.8",
+          "node-microphone": "^0.1.6",
           "node-record-lpcm16": "^1.0.1",
+          "pcm-stream": "^1.0.0",
           "web-audio-api": "^0.2.2"
       }
   }
@@ -684,6 +686,11 @@ Lockfile:
     dependencies:
       whatwg-url "^5.0.0"
   
+  node-microphone@^0.1.6:
+    version "0.1.6"
+    resolved "https://registry.npmmirror.com/node-microphone/-/node-microphone-0.1.6.tgz#c099cb0d8f9869c69efafb9b92d351f35fb8923c"
+    integrity sha512-5229wtpVYNU2gR8zpkABVSdp4wT9qagJgj6pELEIkAVbOXFmaCM35qN3z4ylu3OwFfEKqQ4h9u8Lb58DzaBieQ==
+  
   node-record-lpcm16@^1.0.1:
     version "1.0.1"
     resolved "https://registry.npmmirror.com/node-record-lpcm16/-/node-record-lpcm16-1.0.1.tgz#2201dee8d7dc8fc4055ab1bd275154201433e635"
@@ -711,6 +718,11 @@ Lockfile:
       async "0.2.x"
       chai "1.7.x"
       underscore "1.4.x"
+  
+  pcm-stream@^1.0.0:
+    version "1.0.0"
+    resolved "https://registry.npmmirror.com/pcm-stream/-/pcm-stream-1.0.0.tgz#a2bdab097a14cfad236227e3a36fa9e5e9170e47"
+    integrity sha512-o2GTF9uAa4QhOuIUgtI+E6uYPpXeV5U6Vx0+3KxlqPJSlRV6bKG0kzHQcdPNW/k2mG6ncwHdZ5LYmD121z53hg==
   
   process-nextick-args@~2.0.0:
     version "2.0.1"

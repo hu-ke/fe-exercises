@@ -1,38 +1,41 @@
-const Microphone = require('node-microphone');
-const { spawn } = require('child_process');
+// Imports the Google Cloud client library
+const fs = require('fs');
+const speech = require('@google-cloud/speech');
 
-// Create a microphone instance
-const mic = new Microphone({
-  debug: true,
-  rate: 16000, // Sample rate in Hz
-  channels: 1, // Number of audio channels
-  device: 'plughw:1,0', // Adjust based on your audio device
-});
+// Creates a client
+const client = new speech.SpeechClient();
 
-// Start capturing audio
-mic.startRecording();
+/**
+ * TODO(developer): Uncomment the following lines before running the sample.
+ */
+// const filename = 'Local path to audio file, e.g. /path/to/audio.raw';
+// const encoding = 'Encoding of the audio file, e.g. LINEAR16';
+// const sampleRateHertz = 16000;
+// const languageCode = 'BCP-47 language code, e.g. en-US';
 
-// Spawn pocketsphinx_continuous process for real-time transcription
-const pocketsphinx = spawn('pocketsphinx_continuous', ['-inmic', 'yes', '-hmm', '/usr/local/share/pocketsphinx/model/en-us/en-us', '-lm', 'en-us.lm.bin', '-dict', 'cmudict-en-us.dict']);
+const config = {
+  encoding: 'LINEAR16',
+  // sampleRateHertz: 16000,
+  languageCode: 'en-US',
+};
+const audio = {
+  content: fs.readFileSync('./output2.wav'),
+};
 
-// Listen for data events from pocketsphinx
-pocketsphinx.stdout.on('data', (data) => {
-  console.log(`Transcription: ${data}`);
-});
+const request = {
+  config: config,
+  audio: audio,
+};
 
-// Handle error events
-pocketsphinx.stderr.on('data', (data) => {
-  console.error(`Error: ${data}`);
-});
-
-// Handle process exit
-pocketsphinx.on('exit', (code, signal) => {
-  console.log(`PocketSphinx process exited with code ${code} and signal ${signal}`);
-});
-
-// Stop microphone and pocketsphinx process on SIGINT (Ctrl+C)
-process.on('SIGINT', () => {
-  mic.stopRecording();
-  pocketsphinx.kill('SIGINT');
-  process.exit();
-});
+client.recognize(request).then(([response]) => {
+  const transcription = response.results
+    .map(result => result.alternatives[0].transcript)
+    .join('\n');
+  console.log('Transcription: ', transcription);
+})
+// Detects speech in the audio file
+// const [response] = await client.recognize(request);
+// const transcription = response.results
+//   .map(result => result.alternatives[0].transcript)
+//   .join('\n');
+// console.log('Transcription: ', transcription);

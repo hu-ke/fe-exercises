@@ -1,39 +1,38 @@
-const recorder = require('node-record-lpcm16')
-const speech = require('@google-cloud/speech');
-const fs = require('fs')
-const client = new speech.SpeechClient();
 
-recognizeStream = client
-    .streamingRecognize({
-      config: {
-        encoding: 'LINEAR16',
-        sampleRateHertz: 16000,
-        languageCode: 'en-US',
-      },
-      interimResults: true,
-    })
-    .on('error', console.error)
-    .on('data', data => {
-      if (data.results[0] && data.results[0].alternatives[0]) {
-        const transcription = data.results[0].alternatives[0].transcript;
-        console.log('transcription', transcription)
-      }
-    });
-    
-// const file = fs.createWriteStream('test.wav', { encoding: 'binary' })
+const recorder = require('node-record-lpcm16');
+const { SpeechClient } = require('@google-cloud/speech');
 
+// Create a SpeechClient instance
+const speechClient = new SpeechClient();
+
+// Configure audio settings
+const audioConfig = {
+  encoding: 'LINEAR16', // Specify the audio encoding format
+  // sampleRateHertz: 16000, // Specify the sample rate (Hz)
+  sampleRateHertz: 44100, // Sample rate (Hz)
+  languageCode: 'zh', // Specify the language code
+};
+
+// Create a recognize stream
+const recognizeStream = speechClient
+  .streamingRecognize({
+    config: audioConfig,
+  })
+  .on('error', console.error)
+  .on('data', data =>
+    process.stdout.write(
+      data.results[0] && data.results[0].alternatives[0]
+        ? `Transcription: ${data.results[0].alternatives[0].transcript}\n`
+        : '\n\nReached transcription time limit, press Ctrl+C\n'
+    )
+  );
+
+// Start recording audio
 recorder.record({
-  sampleRate: 44100
-})
-.stream()
-.pipe(recognizeStream)
+  sampleRateHertz: audioConfig.sampleRateHertz,
+  threshold: 0,
+  verbose: false,
+  channels: 1, // Number of audio channels
+}).stream().pipe(recognizeStream);
 
-// recorder.record({
-//     sampleRateHertz: 16000,
-//     threshold: 0,
-//     verbose: false,
-//     recordProgram: 'rec',
-//     silence: '10.0',
-//   })
-//   .on('error', console.error)
-//   .pipe(recognizeStream);
+console.log('Listening, press Ctrl+C to stop.');

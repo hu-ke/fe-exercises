@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <style>
+        .second {
+            color: red;
+            display: none;
+            /* visibility: hidden; */
+        }
+    </style>
+    <div id="outer">
+        <section>Lorem ipsum dolor sit amet consectetur adipisicing elit. Porro rem cumque dolores quis laboriosam suscipit est illum saepe quasi earum. Recusandae distinctio doloribus modi harum laudantium at porro omnis placeat?</section>
+        <h1 class="second">abc</h1>
+        <p>ddddddd</p>
+    </div>
+    <script>
+        let second = document.querySelector('.second')
+        second.addEventListener('click', () => {
+            alert(1)
+        })
+
+        let outer = document.getElementById('outer')
+        outer.addEventListener('click', (e) => {
+            console.log(e)
+        })
+    </script>
+</body>
+</html>
