@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+<script>
+// 1.未声明变量的情况：
+// function nonStrictMode() {
+//   x = 10; // 隐式创建全局变量
+// }
+// nonStrictMode();
+// console.log(x); // 输出 10
+
+// function strictMode() {
+//   'use strict';
+//   y = 20; // ReferenceError: y is not defined
+// }
+// strictMode();
+
+// 2.删除不可删除的属性
+// var obj = {};
+// Object.defineProperty(obj, 'x', { value: 10, configurable: false });
+// delete obj.x; // 删除失败
+// console.log(obj.x); // 输出 10
+
+// 'use strict';
+// var obj = {};
+// Object.defineProperty(obj, 'x', { value: 10, configurable: false });
+// delete obj.x; // TypeError: Cannot delete property 'x' of #<Object>
+
+// 3.禁止使用 with 语句：
+// var obj = { x: 10 };
+// with (obj) {
+//   console.log(x); // 输出 10
+// }
+// 'use strict';
+// var obj = { x: 10 };
+// with (obj) { // SyntaxError: Strict mode code may not include a with statement
+//   console.log(x);
+// }
+</script>
+</body>
+</html>

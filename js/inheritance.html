@@ -8,45 +8,19 @@
 </head>
 <body>
     <script>
-function Box(name) {
-    this.name = name
+const Animal = function() {
+  this.type = 'animal';
 }
-Box.prototype.age = 18
 
-function Desk(name) {
-    Box.call(this, name)
+const Cat = function() {
+  this.name = 'cat';
 }
-var desk = new Desk('ccc')
-console.log(desk, Box.prototype)
 
-// function Parent2() {
-//     this.name = 'parent'
-//     this.play = [1,2,3]
-// }
-// function Child2() {
-//     Parent2.call(this)
-//     this.type = 'child2'
-// }
+Cat.prototype = new Animal()
 
-// Child2.prototype = new Parent2()
-// let child1 = new Child2()
-// let child2 = new Child2()
-
-// child1.play.push(4)
-// console.log(child1.play, child2.play, child2)
-
-// function Parent5() {
-//     this.name = 'parent5'
-//     this.play = [1,2,3]
-// }
-// function Child5() {
-//     Parent5.call(this)
-//     this.type = 'child5'
-// }
-// Child5.prototype = Object.create(Parent5.prototype)
-// // 不加这个会使得child实例的constructor指向Parent5
-// Child5.prototype.constructor = Child5
-// console.log(new Child5());
+const cat = new Cat();
+console.log(cat.__proto__ === Cat.prototype)
+console.log(Cat.prototype.__proto__ === Animal.prototype)
 
     </script>
 </body>
