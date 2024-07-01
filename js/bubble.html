@@ -8,10 +8,16 @@
 </head>
 <body>
     <input type="text" />
+    <div>
+        <span>asdas</span>
+    </div>
     <script>
         document.addEventListener('input', (e) => {
-            console.log('input')
+            console.log('input', e)
             console.log(e.target.value)
+        })
+        document.addEventListener('click', (e) => {
+            console.log('click', e)
         })
     </script>
 </body>

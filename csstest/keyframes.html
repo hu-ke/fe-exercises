@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        /* 定义关键帧 */
+        @keyframes fadeInOut {
+            0% { opacity: 0; } /* 从透明开始 */
+            50% { opacity: 1; } /* 中间完全显示 */
+            100% { opacity: 0; } /* 最终透明 */
+        }
+
+        /* 应用动画 */
+        .element {
+            animation: fadeInOut 2s ease-in-out infinite; /* 应用 fadeInOut 动画，2秒钟播放一次，缓入缓出效果，无限循环 */
+        }
+    </style>
+</head>
+<body>
+    <div class="element">hello</div>
+</body>
+</html>
